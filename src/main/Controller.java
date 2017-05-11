@@ -1,5 +1,6 @@
 package main;
 
+import com.jfoenix.controls.JFXButton;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 
@@ -10,6 +11,12 @@ public class Controller {
 
     @FXML
     private Canvas canvas;
+
+    @FXML
+    private JFXButton tower1;
+
+    @FXML
+    private JFXButton tower2;
 
     public Canvas getCanvas() { return canvas; }
 

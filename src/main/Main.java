@@ -2,6 +2,7 @@ package main;
 
 import javafx.animation.KeyFrame;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -33,6 +34,7 @@ public class Main extends Application implements Runnable {
         Parent root = fxmlLoader.load();
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
+        primaryStage.setOnCloseRequest(e -> { Platform.exit(); System.exit(0);});
 
         canvas = ((Controller) fxmlLoader.getController()).getCanvas();
         gc = canvas.getGraphicsContext2D();
