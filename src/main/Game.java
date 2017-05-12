@@ -2,6 +2,8 @@ package main;
 
 import java.util.ArrayList;
 
+import entity.Enemy;
+import entity.SimpleEnemy;
 import entity.SimpleTower;
 import entity.Tower;
 import javafx.scene.canvas.Canvas;
@@ -34,11 +36,27 @@ public class Game extends Canvas {
             {0, 0, 0, 0, 0, 0, 0, 8, 3, 3, 3, 3, 3, 3, 3, 3}
     };
     
-    private ArrayList<Tower> towers = new ArrayList<>();
+    private final char[][] route = new char[][] {
+    	{'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'},
+    	{'X', 'X', 'X', 'E', 'X', 'X', 'X', 'X', 'X', 'X', 'S', 'X', 'X', 'X', 'X'},
+    	{'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'},
+    	{'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'},
+    	{'X', 'X', 'X', 'X', 'X', 'X', 'X', 'S', 'X', 'X', 'W', 'X', 'X', 'X', 'X'},
+    	{'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'},
+    	{'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'},
+    	{'E', 'X', 'X', 'N', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'},
+    	{'X', 'X', 'X', 'X', 'X', 'X', 'X', 'E', 'X', 'X', 'X', 'X', 'X', 'X', 'X'}
+    };
+    
+    private ArrayList<Tower> towers;
+    private ArrayList<Enemy> enemies;
     
     Game (int width, int height) {
         // TODO
     	super(width, height);
+    	
+    	towers = new ArrayList<>();
+    	enemies = new ArrayList<>();
     	
         init();
     }
@@ -61,6 +79,7 @@ public class Game extends Canvas {
         gridSet[12] = new Image("file:img/PNG/Retina/towerDefense_tile253.png");
         
         towers.add(new SimpleTower(100, 100));
+        enemies.add(new SimpleEnemy(0, 7 * TILE_SIZE + 32));
     }
 
     void repaint() {
@@ -79,11 +98,15 @@ public class Game extends Canvas {
         	t.draw(gc);
         }
         
+        for (Enemy e : enemies) {
+        	e.draw(gc);
+        }
+        
     }
 
     void update() {
-        if (paused) {
-        	return;
-        }
+    	for (Enemy e : enemies) {
+    		e.move(route);
+    	}
     }
 }

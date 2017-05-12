@@ -4,7 +4,7 @@ import javafx.scene.canvas.GraphicsContext;
 
 public abstract class Entity {
 	
-	private double x, y;
+	double x, y;
 	
 	public Entity(int x, int y) {
 		this.x = x;
