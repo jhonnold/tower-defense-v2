@@ -4,11 +4,13 @@ import static main.Game.TILE_SIZE;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import javafx.scene.transform.Rotate;
 
 public abstract class Enemy extends Entity {
 	
 	private int health, speed;
 	private char dir;
+	private double rotationAngle;
 	
 	Image img;
 	
@@ -68,15 +70,19 @@ public abstract class Enemy extends Entity {
 		switch(dir) {
 		case 'N':
 			y -= speed;
+			rotationAngle = -90;
 			break;
 		case 'S':
 			y += speed;
+			rotationAngle = 90;
 			break;
 		case 'E':
 			x += speed;
+			rotationAngle = 0;
 			break;
 		case 'W':
 			x -= speed;
+			rotationAngle = 180;
 			break;
 		default:
 			break;
@@ -89,9 +95,12 @@ public abstract class Enemy extends Entity {
 		double xi = getX() - TILE_SIZE / 2;
 		double yi = getY() - TILE_SIZE / 2;
 		
+		Rotate r = new Rotate(rotationAngle, x, y);
+		gc.save();
+		gc.setTransform(r.getMxx(), r.getMyx(), r.getMxy(), r.getMyy(), r.getTx(), r.getTy());
 		gc.drawImage(img, xi, yi, TILE_SIZE, TILE_SIZE);
-		gc.fillText(getX() + "", xi, yi);
-		gc.fillText(getY() + "", xi, yi + 32);
+		gc.restore();
+		gc.fillText(health + "", xi, yi);
 	}
 	
 }

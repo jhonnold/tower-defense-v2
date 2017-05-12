@@ -1,5 +1,7 @@
 package entity;
 
+import static main.Game.TILE_SIZE;
+
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
@@ -15,12 +17,17 @@ public class Bullet extends Entity {
 		this.enemy = enemy;
 		this.speed = speed;
 		this.damage = damage;
+		
+		img = new Image("file:img/PNG/Retina/towerDefense_tile272.png");
 	}
 
 	@Override
 	public void draw(GraphicsContext gc) {
 		
-		gc.fillOval(x - 2, y - 2, 5, 5);
+		double xi = x - TILE_SIZE / 2;
+		double yi = y - TILE_SIZE / 2;
+		
+		gc.drawImage(img, xi, yi, TILE_SIZE, TILE_SIZE);
 		
 	}
 	

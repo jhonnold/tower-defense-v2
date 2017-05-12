@@ -83,7 +83,9 @@ public class Game extends Canvas {
         gridSet[12] = new Image("file:img/PNG/Retina/towerDefense_tile253.png");
         
         towers.add(new SimpleTower(100, 100));
+        towers.add(new SimpleTower(800, 400));
         enemies.add(new SimpleEnemy(0, 8 * TILE_SIZE));
+        enemies.add(new SimpleEnemy(-3 * TILE_SIZE, 8 * TILE_SIZE));
     }
 
     void repaint() {
@@ -128,6 +130,7 @@ public class Game extends Canvas {
     		if (b.collided()) {
     			b.doDamage();
     			bIterator.remove();
+    			b = null;
     		}
     	}
     	
@@ -138,6 +141,7 @@ public class Game extends Canvas {
     		
     		if (e.isDead()) {
     			eIterator.remove();
+    			e = null;
     			continue;
     		}
     		
@@ -150,6 +154,7 @@ public class Game extends Canvas {
     				bullets.add(t.fire(e));
     			}		
     		}
+    		t.updateAngle();
     	}
     	
     	
