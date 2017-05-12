@@ -1,12 +1,13 @@
 package main;
 
+import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
 /**
  * Created by zomby on 5/10/17 @ 4:20 PM.
  */
-class Game {
+class Game extends Canvas {
 
     private final int TILE_SIZE = 64;
     private final int GRID_WIDTH = 16;
@@ -29,8 +30,10 @@ class Game {
             {0, 0, 0, 0, 0, 0, 0, 8, 3, 3, 3, 3, 3, 3, 3, 3}
     };
 
-    Game () {
+    Game (int width, int height) {
         // TODO
+    	super(width, height);
+    	
         init();
     }
 
@@ -52,8 +55,10 @@ class Game {
         tileSet[12] = new Image("file:img/PNG/Retina/towerDefense_tile253.png");
     }
 
-    void repaint(GraphicsContext gc) {
+    void repaint() {
         // TODO
+    	GraphicsContext gc = getGraphicsContext2D();
+    	
         gc.clearRect(0, 0, TILE_SIZE * GRID_WIDTH, TILE_SIZE * GRID_HEIGHT);
 
         for (int i = 0; i < GRID_WIDTH; i++) {

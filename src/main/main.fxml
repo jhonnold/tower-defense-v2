@@ -27,14 +27,13 @@
    </top>
    <center>
       <SplitPane dividerPositions="0.8" BorderPane.alignment="CENTER">
-          <AnchorPane>
-               <Canvas fx:id="canvas" height="640.0" width="1024.0" />
+          <AnchorPane fx:id="leftPane">
           </AnchorPane>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+          <AnchorPane fx:id="rightPane">
                   <VBox alignment="CENTER" layoutX="8.0" layoutY="9.0" prefHeight="318.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                         <Label text="Store" textAlignment="CENTER" underline="true" />
-                        <JFXButton fx:id="tower1" text="Tower 1" />
-                        <JFXButton fx:id="tower2" text="Tower 2" />
+                        <JFXButton text="Tower 1" />
+                        <JFXButton text="Tower 2" />
                   </VBox>
             </AnchorPane>
       </SplitPane>

@@ -9,14 +9,12 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.animation.Timeline;
 import javafx.util.Duration;
 
 public class Main extends Application implements Runnable {
-
-    private Canvas canvas;
-    private GraphicsContext gc;
 
     private Game game;
 
@@ -35,11 +33,10 @@ public class Main extends Application implements Runnable {
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
         primaryStage.setOnCloseRequest(e -> { Platform.exit(); System.exit(0);});
-
-        canvas = ((Controller) fxmlLoader.getController()).getCanvas();
-        gc = canvas.getGraphicsContext2D();
-
-        game = new Game();
+        
+        AnchorPane leftPane = ((Controller) fxmlLoader.getController()).getLeftPane();
+        game = new Game(1024, 640);
+        leftPane.getChildren().add(game);
 
         Timeline gameLoop = new Timeline();
         gameLoop.setCycleCount(Timeline.INDEFINITE);
@@ -47,7 +44,7 @@ public class Main extends Application implements Runnable {
         KeyFrame kf = new KeyFrame(
                 Duration.seconds(0.017),
                 (ActionEvent event) -> {
-                    game.repaint(gc);
+                    game.repaint();
                 }
         );
 
