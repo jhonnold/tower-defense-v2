@@ -27,7 +27,7 @@ public class Main extends Application implements Runnable {
 	private boolean running = false;
 
 	// Game Loop Variables
-	private final int TICKS_PER_SECOND = 200;
+	private final int TICKS_PER_SECOND = 100;
 	private final int SKIP_TICKS = 1000 / TICKS_PER_SECOND;
 	private final int MAX_FRAMESKIP = 5;
 
