@@ -13,7 +13,9 @@ class Game {
     private final int GRID_HEIGHT = 10;
 
     private Image[] tileSet;
-
+    
+    private boolean paused = true;
+    
     private final int[][] grid = new int[][] {
             {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
             {0, 0, 0, 5, 1, 1, 1, 1, 1, 1, 1, 6, 0, 0, 0, 0},
@@ -54,14 +56,16 @@ class Game {
         // TODO
         gc.clearRect(0, 0, TILE_SIZE * GRID_WIDTH, TILE_SIZE * GRID_HEIGHT);
 
-        for (int i = 0; i < GRID_WIDTH * TILE_SIZE; i += TILE_SIZE) {
-            for (int j = 0; j < GRID_HEIGHT * TILE_SIZE; j += TILE_SIZE) {
-                gc.drawImage(tileSet[grid[j / TILE_SIZE][i / TILE_SIZE]], i, j, TILE_SIZE, TILE_SIZE);
+        for (int i = 0; i < GRID_WIDTH; i++) {
+            for (int j = 0; j < GRID_HEIGHT; j ++) {
+                gc.drawImage(tileSet[grid[j][i]], i * TILE_SIZE, j * TILE_SIZE, TILE_SIZE, TILE_SIZE);
             }
         }
     }
 
     void update() {
-        // TODO
+        if (paused) {
+        	return;
+        }
     }
 }
