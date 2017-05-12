@@ -6,7 +6,7 @@ public abstract class Entity {
 	
 	double x, y;
 	
-	public Entity(int x, int y) {
+	public Entity(double x, double y) {
 		this.x = x;
 		this.y = y;
 	}

@@ -1,7 +1,9 @@
 package main;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
+import entity.Bullet;
 import entity.Enemy;
 import entity.SimpleEnemy;
 import entity.SimpleTower;
@@ -49,7 +51,8 @@ public class Game extends Canvas {
     };
     
     private ArrayList<Tower> towers;
-    private ArrayList<Enemy> enemies;
+    private ArrayList<Enemy> enemies;	
+    private ArrayList<Bullet> bullets;
     
     Game (int width, int height) {
         // TODO
@@ -57,6 +60,7 @@ public class Game extends Canvas {
     	
     	towers = new ArrayList<>();
     	enemies = new ArrayList<>();
+    	bullets = new ArrayList<>();
     	
         init();
     }
@@ -79,7 +83,7 @@ public class Game extends Canvas {
         gridSet[12] = new Image("file:img/PNG/Retina/towerDefense_tile253.png");
         
         towers.add(new SimpleTower(100, 100));
-        enemies.add(new SimpleEnemy(0, 7 * TILE_SIZE + 32));
+        enemies.add(new SimpleEnemy(0, 8 * TILE_SIZE));
     }
 
     void repaint() {
@@ -87,26 +91,67 @@ public class Game extends Canvas {
     	GraphicsContext gc = getGraphicsContext2D();
     	
         gc.clearRect(0, 0, TILE_SIZE * GRID_WIDTH, TILE_SIZE * GRID_HEIGHT);
-
+        
+        // DRAW BACKGROUND MAP
+        // -------------------
         for (int i = 0; i < GRID_WIDTH; i++) {
             for (int j = 0; j < GRID_HEIGHT; j ++) {
                 gc.drawImage(gridSet[grid[j][i]], i * TILE_SIZE, j * TILE_SIZE, TILE_SIZE, TILE_SIZE);
             }
         }
+        // -------------------
         
+        // DRAW TOWERS
         for (Tower t : towers) {
         	t.draw(gc);
         }
         
+        // DRAW ENEMIES
         for (Enemy e : enemies) {
         	e.draw(gc);
         }
         
+        // DRAW BULETS
+        for (Bullet b : bullets) {
+        	b.draw(gc);
+        }
     }
 
     void update() {
-    	for (Enemy e : enemies) {
+    	Iterator<Bullet> bIterator = bullets.iterator();
+    	
+    	while (bIterator.hasNext()) {
+    		Bullet b = bIterator.next();
+    		
+    		b.move();
+    		
+    		if (b.collided()) {
+    			b.doDamage();
+    			bIterator.remove();
+    		}
+    	}
+    	
+    	Iterator<Enemy> eIterator = enemies.iterator();
+    	
+    	while (eIterator.hasNext()) {
+    		Enemy e = eIterator.next();
+    		
+    		if (e.isDead()) {
+    			eIterator.remove();
+    			continue;
+    		}
+    		
     		e.move(route);
     	}
+    	
+    	for (Tower t : towers) {
+    		for (Enemy e : enemies) {			
+    			if (t.distance(e) < t.getRange() && t.canFire()) {
+    				bullets.add(t.fire(e));
+    			}		
+    		}
+    	}
+    	
+    	
     }
 }

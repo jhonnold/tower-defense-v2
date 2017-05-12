@@ -4,6 +4,7 @@ import static main.Game.TILE_SIZE;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import javafx.scene.paint.Color;
 
 public abstract class Tower extends Entity {
 	
@@ -14,6 +15,7 @@ public abstract class Tower extends Entity {
 	
 	public Tower(int x, int y) {
 		super(x, y);
+		lastShotTime = System.currentTimeMillis();
 	}
 	
 	public int getRange() {
@@ -44,17 +46,27 @@ public abstract class Tower extends Entity {
 		
 		gc.drawImage(img, xi, yi, TILE_SIZE, TILE_SIZE);
 		
+		if (!canFire()) {
+			gc.setFill(Color.RED);
+			gc.fillText("FIRE!", xi, yi);
+		}
+		
 	}
 	
 	public boolean canFire() {
 		int dt = (int)(System.currentTimeMillis() - lastShotTime);
 		
 		if (dt >= shotDelay) {
-			lastShotTime = System.currentTimeMillis();
+			//lastShotTime = System.currentTimeMillis();
 			return true;
 		} else {
 			return false;
 		}
+	}
+	
+	public Bullet fire(Enemy e) {
+		lastShotTime = System.currentTimeMillis();
+		return new Bullet(x, y, e, 2, 10);
 	}
 	
 }
