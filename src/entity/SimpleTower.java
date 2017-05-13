@@ -1,6 +1,6 @@
 package entity;
 
-import static main.Game.TILE_SIZE;
+import static gui.Game.TILE_SIZE;
 
 import javafx.scene.image.Image;
 

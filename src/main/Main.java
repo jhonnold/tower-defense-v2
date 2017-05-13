@@ -1,5 +1,6 @@
 package main;
 
+import gui.Game;
 import javafx.animation.KeyFrame;
 import javafx.application.Application;
 import javafx.application.Platform;

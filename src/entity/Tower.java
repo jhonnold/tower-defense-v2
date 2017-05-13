@@ -1,6 +1,6 @@
 package entity;
 
-import static main.Game.TILE_SIZE;
+import static gui.Game.TILE_SIZE;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
@@ -56,6 +56,13 @@ public abstract class Tower extends Entity {
 		
 		gc.fillText("" + rotationAngle, xi, yi);
 		
+	}
+	
+	public void draw(GraphicsContext gc, int x, int y) {
+		double xi = x - TILE_SIZE / 2;
+		double yi = y - TILE_SIZE / 2;
+		
+		gc.drawImage(img, xi, yi, TILE_SIZE, TILE_SIZE);
 	}
 	
 	public boolean canFire() {

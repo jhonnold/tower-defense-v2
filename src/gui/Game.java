@@ -1,4 +1,4 @@
-package main;
+package gui;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -11,6 +11,7 @@ import entity.Tower;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import javafx.scene.input.MouseEvent;
 
 /**
  * Created by zomby on 5/10/17 @ 4:20 PM.
@@ -22,8 +23,6 @@ public class Game extends Canvas {
     private final int GRID_HEIGHT = 10;
 
     private Image[] gridSet;
-    
-    private boolean paused = true;
     
     private final int[][] grid = new int[][] {
             {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -54,7 +53,10 @@ public class Game extends Canvas {
     private ArrayList<Enemy> enemies;	
     private ArrayList<Bullet> bullets;
     
-    Game (int width, int height) {
+    private int mx, my;
+    private Tower selectedTower;
+    
+    public Game (int width, int height) {
         // TODO
     	super(width, height);
     	
@@ -86,9 +88,23 @@ public class Game extends Canvas {
         towers.add(new SimpleTower(800, 400));
         enemies.add(new SimpleEnemy(0, 8 * TILE_SIZE));
         enemies.add(new SimpleEnemy(-3 * TILE_SIZE, 8 * TILE_SIZE));
+        
+        setOnMouseMoved((MouseEvent e) -> {
+        	mx = (int) e.getX();
+        	my = (int) e.getY();
+        });
+        
+        setOnMouseClicked((MouseEvent e) -> {
+        	if (selectedTower != null) {
+        		towers.add(new SimpleTower(mx, my));
+        		selectedTower = null;
+        	}
+        });
+        
+        selectedTower = new SimpleTower(mx, my);
     }
 
-    void repaint() {
+    public void repaint() {
         // TODO
     	GraphicsContext gc = getGraphicsContext2D();
     	
@@ -117,9 +133,14 @@ public class Game extends Canvas {
         for (Bullet b : bullets) {
         	b.draw(gc);
         }
+        
+        if (selectedTower != null) {
+        	selectedTower.draw(gc, mx, my);
+        }
+        
     }
 
-    void update() {
+    public void update() {
     	Iterator<Bullet> bIterator = bullets.iterator();
     	
     	while (bIterator.hasNext()) {
