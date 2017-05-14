@@ -1,11 +1,12 @@
 package gui;
 
+import static utils.InputHandler.*;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 
 import entity.Bullet;
 import entity.Enemy;
-import entity.SimpleEnemy;
 import entity.SimpleTower;
 import entity.Tower;
 import javafx.scene.canvas.Canvas;
@@ -77,23 +78,13 @@ public class Game extends Canvas {
 		gridSet[11] = new Image("file:img/PNG/Retina/towerDefense_tile255.png");
 		gridSet[12] = new Image("file:img/PNG/Retina/towerDefense_tile253.png");
 
-		towers.add(new SimpleTower(100, 100));
-		towers.add(new SimpleTower(800, 400));
-		enemies.add(new SimpleEnemy(0, 8 * TILE_SIZE));
-		enemies.add(new SimpleEnemy(-3 * TILE_SIZE, 8 * TILE_SIZE));
-
 		setOnMouseMoved((MouseEvent e) -> {
 			mx = (int) e.getX();
 			my = (int) e.getY();
 		});
 
 		setOnMouseClicked((MouseEvent e) -> {
-			if (selectedTower != null) {
-				if (grid[my / TILE_SIZE][mx / TILE_SIZE] == 0) {
-					towers.add(new SimpleTower(mx, my));
-					selectedTower = null;
-				}
-			}
+			handleMouseClick(e, grid, towers, selectedTower);
 		});
 
 		selectedTower = new SimpleTower(mx, my);
@@ -128,9 +119,10 @@ public class Game extends Canvas {
 		for (Bullet b : bullets) {
 			b.draw(gc);
 		}
-
+		
+		// DRAW THE SELECTED TOWER
 		if (selectedTower != null) {
-			if (grid[my / TILE_SIZE][mx / TILE_SIZE] == 0) {
+			if (grid[my / TILE_SIZE][mx / TILE_SIZE] == 0 && !collides(towers, mx, my)) {
 				selectedTower.draw(gc, mx, my);
 			} else {
 				gc.fillOval(mx, my, 5, 5);

@@ -26,6 +26,13 @@ public abstract class Entity {
 		return Math.sqrt(dx * dx + dy * dy);
 	}
 	
+	public double distance(int mx, int my) {
+		double dx = mx - x;
+		double dy = my - y;
+		
+		return Math.sqrt(dx * dx + dy * dy);
+	}
+	
 	public abstract void draw(GraphicsContext gc);
 	
 }
