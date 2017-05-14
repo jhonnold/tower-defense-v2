@@ -1,6 +1,7 @@
 package main;
 
 import gui.Game;
+import gui.Shop;
 import javafx.animation.KeyFrame;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -24,7 +25,8 @@ public class Main extends Application implements Runnable {
 
 	// Canvas for the game
 	private Game game;
-
+	private Shop shop;
+	
 	private boolean running = false;
 
 	// Game Loop Variables
@@ -50,6 +52,11 @@ public class Main extends Application implements Runnable {
 		AnchorPane leftPane = ((Controller) fxmlLoader.getController()).getLeftPane();
 		game = new Game(1024, 640);
 		leftPane.getChildren().add(game);
+		
+		AnchorPane rightPane = ((Controller) fxmlLoader.getController()).getRightPane();
+		shop = new Shop();
+		shop.setListener(game);
+		rightPane.getChildren().add(shop);
 
 		// Set the frame rate to ~60 FPS
 		Timeline animationLoop = new Timeline();

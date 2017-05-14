@@ -7,7 +7,6 @@ import java.util.Iterator;
 
 import entity.Bullet;
 import entity.Enemy;
-import entity.SimpleTower;
 import entity.Tower;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -47,9 +46,9 @@ public class Game extends Canvas {
 	private ArrayList<Enemy> enemies;
 	private ArrayList<Bullet> bullets;
 
-	private int mx, my;
+	private int mx, my, money = 100;
 	private Tower selectedTower;
-
+	
 	public Game(int width, int height) {
 		// TODO
 		super(width, height);
@@ -61,6 +60,18 @@ public class Game extends Canvas {
 		init();
 	}
 
+	public int getMoney() {
+		return money;
+	}
+	
+	public void buyTower(int cost) {
+		money -= cost;
+	}
+	
+	public void setSelectedTower(Tower t) {
+		selectedTower = t;
+	}
+	
 	private void init() {
 		// TODO
 		gridSet = new Image[13];
@@ -84,10 +95,8 @@ public class Game extends Canvas {
 		});
 
 		setOnMouseClicked((MouseEvent e) -> {
-			handleMouseClick(e, grid, towers, selectedTower);
+			selectedTower = handleMouseClick(e, grid, towers, selectedTower);
 		});
-
-		selectedTower = new SimpleTower(mx, my);
 	}
 
 	public void repaint() {

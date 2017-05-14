@@ -11,14 +11,20 @@ import javafx.scene.input.MouseEvent;
 
 public class InputHandler {
 
-	public static void handleMouseClick(MouseEvent e, int[][] grid, ArrayList<Tower> towers, Tower selectedTower) {
+	public static Tower handleMouseClick(MouseEvent e, int[][] grid, ArrayList<Tower> towers, Tower selectedTower) {
+		if (selectedTower == null) {
+			return null;
+		}
+		
 		int mx = (int) e.getX();
 		int my = (int) e.getY();
 		
 		if (grid[my / TILE_SIZE][mx / TILE_SIZE] == 0 && !collides(towers, mx, my)) {
 			towers.add(new SimpleTower(mx, my));
-			//selectedTower = null;
+			return null;
 		}
+		
+		return selectedTower;
 	}
 	
 	public static boolean collides(Iterable<Tower> list, int mx, int my) {
