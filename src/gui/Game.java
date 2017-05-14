@@ -7,6 +7,7 @@ import java.util.Iterator;
 
 import entity.Bullet;
 import entity.Enemy;
+import entity.SimpleEnemy;
 import entity.Tower;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -48,6 +49,8 @@ public class Game extends Canvas {
 
 	private int mx, my, money = 100;
 	private Tower selectedTower;
+	
+	private boolean contained = true;
 	
 	public Game(int width, int height) {
 		// TODO
@@ -93,10 +96,20 @@ public class Game extends Canvas {
 			mx = (int) e.getX();
 			my = (int) e.getY();
 		});
+		
+		setOnMouseExited((MouseEvent e) -> {
+			contained = false;
+		});
+		
+		setOnMouseEntered((MouseEvent e) -> {
+			contained = true;
+		});
 
 		setOnMouseClicked((MouseEvent e) -> {
 			selectedTower = handleMouseClick(e, grid, towers, selectedTower);
 		});
+		
+		enemies.add(new SimpleEnemy(0, 8 * TILE_SIZE));
 	}
 
 	public void repaint() {
@@ -130,9 +143,11 @@ public class Game extends Canvas {
 		}
 		
 		// DRAW THE SELECTED TOWER
-		if (selectedTower != null) {
+		if (selectedTower != null && contained) {
 			if (grid[my / TILE_SIZE][mx / TILE_SIZE] == 0 && !collides(towers, mx, my)) {
 				selectedTower.draw(gc, mx, my);
+				int range = Tower.getRange(selectedTower);
+				gc.strokeOval(mx - range, my - range, range * 2, range * 2);
 			} else {
 				gc.fillOval(mx, my, 5, 5);
 			}

@@ -91,4 +91,12 @@ public abstract class Tower extends Entity {
 		}
 	}
 	
+	public static int getRange(Tower t) {
+		if (t instanceof SimpleTower) {
+			return SimpleTower.RANGE;
+		} else {
+			return 0;
+		}
+	}
+	
 }

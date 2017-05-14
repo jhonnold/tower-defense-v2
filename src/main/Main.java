@@ -1,6 +1,7 @@
 package main;
 
 import gui.Game;
+import gui.MainMenu;
 import gui.Shop;
 import javafx.animation.KeyFrame;
 import javafx.application.Application;
@@ -23,10 +24,15 @@ import javafx.util.Duration;
  */
 public class Main extends Application implements Runnable {
 
+	private Stage primary;
+	private AnchorPane leftPane, rightPane;
+	
 	// Canvas for the game
 	private Game game;
 	private Shop shop;
-	
+
+	private FXMLLoader fxmlLoader;
+
 	private boolean running = false;
 
 	// Game Loop Variables
@@ -36,10 +42,12 @@ public class Main extends Application implements Runnable {
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
+		primary = primaryStage;
+		
 		primaryStage.setTitle("tower-defense");
 
 		// Load the scene from FXML
-		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("main.fxml"));
+		fxmlLoader = new FXMLLoader(getClass().getResource("main.fxml"));
 		Parent root = fxmlLoader.load();
 		Scene scene = new Scene(root);
 		primaryStage.setScene(scene);
@@ -49,21 +57,17 @@ public class Main extends Application implements Runnable {
 		});
 
 		// Move the game into the leftPane
-		AnchorPane leftPane = ((Controller) fxmlLoader.getController()).getLeftPane();
-		game = new Game(1024, 640);
-		leftPane.getChildren().add(game);
-		
-		AnchorPane rightPane = ((Controller) fxmlLoader.getController()).getRightPane();
-		shop = new Shop();
-		shop.setListener(game);
-		rightPane.getChildren().add(shop);
+		leftPane = ((Controller) fxmlLoader.getController()).getLeftPane();
+		leftPane.getChildren().add(new MainMenu(this));
 
 		// Set the frame rate to ~60 FPS
 		Timeline animationLoop = new Timeline();
 		animationLoop.setCycleCount(Timeline.INDEFINITE);
 
 		KeyFrame kf = new KeyFrame(Duration.seconds(0.017), (ActionEvent event) -> {
-			game.repaint();
+			if (game != null) {
+				game.repaint();
+			}
 		});
 
 		animationLoop.getKeyFrames().add(kf);
@@ -71,7 +75,6 @@ public class Main extends Application implements Runnable {
 		primaryStage.show();
 
 		// Start the Game Loop and the animation loops
-		new Thread(this, "Game Loop").start();
 		animationLoop.play();
 	}
 
@@ -91,6 +94,35 @@ public class Main extends Application implements Runnable {
 				loops++;
 			}
 		}
+	}
+
+	public void startGame() {
+		
+		game = new Game(1024, 640);
+		leftPane.getChildren().clear();
+		leftPane.getChildren().add(game);
+
+		rightPane = ((Controller) fxmlLoader.getController()).getRightPane();
+		shop = new Shop();
+		shop.setGameListener(game);
+		shop.setMainListener(this);
+		rightPane.getChildren().add(shop);
+		
+		primary.sizeToScene();
+		
+		new Thread(this, "Game Loop").start();
+	}
+	
+	public void endGame() {
+		
+		running = false;
+		
+		leftPane.getChildren().clear();
+		rightPane.getChildren().clear();
+		
+		leftPane.getChildren().add(new MainMenu(this));
+		
+		primary.sizeToScene();
 	}
 
 	public static void main(String[] args) {
