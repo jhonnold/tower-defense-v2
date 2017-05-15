@@ -47,7 +47,7 @@ public class Game extends Canvas {
 	private ArrayList<Enemy> enemies;
 	private ArrayList<Bullet> bullets;
 
-	private int mx, my, money = 100;
+	private int mx, my, money = 10000;
 	private Tower selectedTower;
 	
 	private boolean contained = true;

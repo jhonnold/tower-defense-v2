@@ -19,7 +19,7 @@ public abstract class Tower extends Entity {
 	
 	public Tower(int x, int y) {
 		super(x, y);
-		lastShotTime = System.currentTimeMillis();
+		lastShotTime = -100;
 	}
 	
 	public int getRange() {
@@ -54,8 +54,6 @@ public abstract class Tower extends Entity {
 		gc.drawImage(img, xi, yi, TILE_SIZE, TILE_SIZE);
 		gc.restore();
 		
-		gc.fillText("" + rotationAngle, xi, yi);
-		
 	}
 	
 	public void draw(GraphicsContext gc, int x, int y) {
@@ -69,7 +67,6 @@ public abstract class Tower extends Entity {
 		int dt = (int)(System.currentTimeMillis() - lastShotTime);
 		
 		if (dt >= shotDelay) {
-			//lastShotTime = System.currentTimeMillis();
 			return true;
 		} else {
 			return false;

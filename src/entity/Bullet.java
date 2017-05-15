@@ -14,6 +14,7 @@ public class Bullet extends Entity {
 	private double rotationAngle = 0;
 	
 	Image img;
+	Image flames;
 	
 	public Bullet(double x, double y, Enemy enemy, int speed, int damage) {
 		super(x, y);
@@ -22,6 +23,8 @@ public class Bullet extends Entity {
 		this.damage = damage;
 		
 		img = new Image("file:img/PNG/Retina/towerDefense_tile251.png");
+		flames = new Image("file:img/PNG/Retina/towerDefense_tile295.png");
+		
 	}
 
 	@Override
@@ -30,7 +33,15 @@ public class Bullet extends Entity {
 		double xi = x - TILE_SIZE / 2;
 		double yi = y - TILE_SIZE / 2;
 		
-		Rotate r = new Rotate(rotationAngle, x, y);
+		double dy = (double) TILE_SIZE * .5 + Math.sin(Math.toRadians(rotationAngle + 180));
+		
+		Rotate r = new Rotate(rotationAngle + 180, x, y);
+		gc.save();
+		gc.setTransform(r.getMxx(), r.getMyx(), r.getMxy(), r.getMyy(), r.getTx(), r.getTy());
+		gc.drawImage(flames, xi, yi - dy, TILE_SIZE, TILE_SIZE);
+		gc.restore();
+		
+		r = new Rotate(rotationAngle, x, y);
 		gc.save();
 		gc.setTransform(r.getMxx(), r.getMyx(), r.getMxy(), r.getMyy(), r.getTx(), r.getTy());
 		gc.drawImage(img, xi, yi, TILE_SIZE, TILE_SIZE);
