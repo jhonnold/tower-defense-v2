@@ -13,6 +13,8 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Color;
+import level.Level;
 
 /**
  * Created by zomby on 5/10/17 @ 4:20 PM.
@@ -109,7 +111,9 @@ public class Game extends Canvas {
 			selectedTower = handleMouseClick(e, grid, towers, selectedTower);
 		});
 		
-		enemies.add(new SimpleEnemy(0, 8 * TILE_SIZE));
+		Level level = new Level(this);
+		new Thread(level).start();
+		
 	}
 
 	public void repaint() {
@@ -146,7 +150,9 @@ public class Game extends Canvas {
 		if (selectedTower != null && contained) {
 			if (grid[my / TILE_SIZE][mx / TILE_SIZE] == 0 && !collides(towers, mx, my)) {
 				selectedTower.draw(gc, mx, my);
+				
 				int range = Tower.getRange(selectedTower);
+				gc.setStroke(Color.RED);
 				gc.strokeOval(mx - range, my - range, range * 2, range * 2);
 			} else {
 				gc.fillOval(mx, my, 5, 5);
@@ -193,5 +199,9 @@ public class Game extends Canvas {
 			t.updateAngle();
 		}
 
+	}
+
+	public void addEnemy(Enemy simpleEnemy) {
+		enemies.add(simpleEnemy);
 	}
 }
