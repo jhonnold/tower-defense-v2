@@ -7,10 +7,11 @@ import java.util.Iterator;
 
 import entity.Bullet;
 import entity.Enemy;
-import entity.SimpleEnemy;
 import entity.Tower;
+import javafx.event.ActionEvent;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
@@ -49,8 +50,9 @@ public class Game extends Canvas {
 	private ArrayList<Enemy> enemies;
 	private ArrayList<Bullet> bullets;
 
-	private int mx, my, money = 10000;
+	private int mx, my, money = 10000, levelNum = 1;
 	private Tower selectedTower;
+	private Button levelButton;
 	
 	private boolean contained = true;
 	
@@ -64,7 +66,19 @@ public class Game extends Canvas {
 
 		init();
 	}
-
+	
+	public void setLevelButton(Button levelButton) {
+		this.levelButton = levelButton;
+		this.levelButton.setOnAction((ActionEvent e) -> {
+			new Thread(new Level(levelNum++, this)).start();
+			this.levelButton.setVisible(false);
+		});
+	}
+	
+	public void onLevelDone() {
+		levelButton.setVisible(true);
+	}
+	
 	public int getMoney() {
 		return money;
 	}
@@ -79,6 +93,7 @@ public class Game extends Canvas {
 	
 	private void init() {
 		// TODO
+		
 		gridSet = new Image[13];
 		gridSet[0] = new Image("file:img/PNG/Retina/towerDefense_tile162.png");
 		gridSet[1] = new Image("file:img/PNG/Retina/towerDefense_tile254.png");
@@ -111,8 +126,7 @@ public class Game extends Canvas {
 			selectedTower = handleMouseClick(e, grid, towers, selectedTower);
 		});
 		
-		Level level = new Level(this);
-		new Thread(level).start();
+		
 		
 	}
 

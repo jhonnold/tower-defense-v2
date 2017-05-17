@@ -5,6 +5,8 @@ import javafx.event.ActionEvent;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import main.Main;
 
@@ -18,7 +20,14 @@ public class Shop extends VBox {
 		
 		getChildren().add(new Label("Store"));
 		
-		Button simpleTower = new Button("Simple Tower");
+		ImageView simpleTowerImg = new ImageView(new Image(SimpleTower.IMAGE_URL));
+		
+		Button simpleTower = new Button(null, simpleTowerImg);
+		simpleTower.setStyle(
+			"-fx-background-radius: 128em; "
+		);
+		
+		
 		simpleTower.setOnAction((ActionEvent e) -> {
 			if (game.getMoney() >= 100) {
 				game.buyTower(100);

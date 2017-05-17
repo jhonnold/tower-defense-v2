@@ -4,7 +4,6 @@ import static gui.Game.TILE_SIZE;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import javafx.scene.paint.Color;
 import javafx.scene.transform.Rotate;
 
 public abstract class Tower extends Entity {

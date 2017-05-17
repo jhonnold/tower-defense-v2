@@ -9,13 +9,16 @@ public class Level implements Runnable {
 	
 	private final Game game;
 	
-	public Level(Game game) {
-		this.game = game; 
+	private int count;
+	
+	public Level(int level, Game game) {
+		this.game = game;
+		
+		count = level * 3 + 2;
 	}
 	
 	@Override
 	public void run() {
-		int count = 10;
 		
 		while (count > 0) {
 			game.addEnemy(new SimpleEnemy(-1 * TILE_SIZE, 8 * TILE_SIZE));
@@ -24,6 +27,8 @@ public class Level implements Runnable {
 				Thread.sleep(1000);
 			} catch (Exception e) {}
 		}
+		
+		game.onLevelDone();
 	}
 
 }

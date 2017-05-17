@@ -10,6 +10,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.animation.Timeline;
@@ -101,7 +102,14 @@ public class Main extends Application implements Runnable {
 		game = new Game(1024, 640);
 		leftPane.getChildren().clear();
 		leftPane.getChildren().add(game);
-
+		
+		Button levelButton = new Button("Next Level");
+		levelButton.setLayoutX(10);
+		levelButton.setLayoutY(10);
+		
+		leftPane.getChildren().add(levelButton);
+		game.setLevelButton(levelButton);
+		
 		rightPane = ((Controller) fxmlLoader.getController()).getRightPane();
 		shop = new Shop();
 		shop.setGameListener(game);
