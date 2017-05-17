@@ -12,9 +12,9 @@ public class SimpleTower extends Tower {
 	public SimpleTower(int x, int y) {
 		super(x, y);
 		img = new Image(IMAGE_URL);
-		setRange(RANGE);
-		setDamage(1);
-		setShotDelay(1000);
+		range = RANGE;
+		damage = 1;
+		shotDelay = 100;
 	}
 	
 }

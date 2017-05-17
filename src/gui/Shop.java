@@ -27,7 +27,6 @@ public class Shop extends VBox {
 			"-fx-background-radius: 128em; "
 		);
 		
-		
 		simpleTower.setOnAction((ActionEvent e) -> {
 			if (game.getMoney() >= 100) {
 				game.buyTower(100);

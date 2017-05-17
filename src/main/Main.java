@@ -37,10 +37,12 @@ public class Main extends Application implements Runnable {
 	private boolean running = false;
 
 	// Game Loop Variables
-	private final int TICKS_PER_SECOND = 100;
+	private final int TICKS_PER_SECOND = 500;
 	private final int SKIP_TICKS = 1000 / TICKS_PER_SECOND;
 	private final int MAX_FRAMESKIP = 5;
-
+	
+	public static long CURRENT_GAME_TICK = 0;
+	
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		primary = primaryStage;
@@ -93,6 +95,7 @@ public class Main extends Application implements Runnable {
 				game.update();
 				next_game_tick += SKIP_TICKS;
 				loops++;
+				CURRENT_GAME_TICK++;
 			}
 		}
 	}

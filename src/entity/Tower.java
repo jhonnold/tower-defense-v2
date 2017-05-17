@@ -5,10 +5,11 @@ import static gui.Game.TILE_SIZE;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.transform.Rotate;
+import main.Main;
 
 public abstract class Tower extends Entity {
 	
-	private int range, damage, shotDelay;
+	int range, damage, shotDelay;
 	private long lastShotTime;
 	
 	private Enemy lastEnemy;
@@ -27,18 +28,6 @@ public abstract class Tower extends Entity {
 	
 	public int getDamage() {
 		return damage;
-	}
-	
-	public void setRange(int range) {
-		this.range = range;
-	}
-	
-	public void setDamage(int damage) {
-		this.damage = damage;
-	}
-	
-	public void setShotDelay(int shotDelay) {
-		this.shotDelay = shotDelay;
 	}
 	
 	@Override
@@ -63,7 +52,7 @@ public abstract class Tower extends Entity {
 	}
 	
 	public boolean canFire() {
-		int dt = (int)(System.currentTimeMillis() - lastShotTime);
+		int dt = (int)(Main.CURRENT_GAME_TICK - lastShotTime);
 		
 		if (dt >= shotDelay) {
 			return true;
@@ -73,7 +62,7 @@ public abstract class Tower extends Entity {
 	}
 	
 	public Bullet fire(Enemy e) {
-		lastShotTime = System.currentTimeMillis();
+		lastShotTime = Main.CURRENT_GAME_TICK;
 		lastEnemy = e;
 		return new Bullet(x, y, e, 2, damage);
 	}

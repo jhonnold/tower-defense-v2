@@ -4,6 +4,7 @@ import static gui.Game.TILE_SIZE;
 
 import entity.SimpleEnemy;
 import gui.Game;
+import main.Main;
 
 public class Level implements Runnable {
 	
@@ -23,8 +24,12 @@ public class Level implements Runnable {
 		while (count > 0) {
 			game.addEnemy(new SimpleEnemy(-1 * TILE_SIZE, 8 * TILE_SIZE));
 			count--;
+			
+			long endTick = Main.CURRENT_GAME_TICK + 100;
 			try {
-				Thread.sleep(1000);
+				while (endTick > Main.CURRENT_GAME_TICK) {
+					Thread.yield();
+				}
 			} catch (Exception e) {}
 		}
 		
