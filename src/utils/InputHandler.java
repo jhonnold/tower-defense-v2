@@ -3,6 +3,7 @@ package utils;
 import static gui.Game.TILE_SIZE;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import entity.Entity;
 import entity.SimpleTower;
@@ -11,7 +12,7 @@ import javafx.scene.input.MouseEvent;
 
 public class InputHandler {
 
-	public static Tower handleMouseClick(MouseEvent e, int[][] grid, ArrayList<Tower> towers, Tower selectedTower) {
+	public static Tower handleMouseClick(MouseEvent e, int[][] grid, List<Tower> towers, Tower selectedTower) {
 		if (selectedTower == null) {
 			return null;
 		}

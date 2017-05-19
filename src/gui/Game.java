@@ -3,7 +3,9 @@ package gui;
 import static utils.InputHandler.*;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
+import java.util.List;
 
 import entity.Bullet;
 import entity.Enemy;
@@ -46,27 +48,27 @@ public class Game extends Canvas {
 			{ 'E', 'X', 'X', 'N', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' },
 			{ 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'E', 'X', 'X', 'X', 'X', 'X', 'X', 'X' } };
 
-	private ArrayList<Tower> towers;
-	private ArrayList<Enemy> enemies;
-	private ArrayList<Bullet> bullets;
+	private List<Tower> towers;
+	private List<Enemy> enemies;
+	private List<Bullet> bullets;
 
 	private int mx, my, money = 10000, levelNum = 1;
 	private Tower selectedTower;
 	private Button levelButton;
-	
+
 	private boolean contained = true;
-	
+
 	public Game(int width, int height) {
 		// TODO
 		super(width, height);
 
-		towers = new ArrayList<>();
-		enemies = new ArrayList<>();
-		bullets = new ArrayList<>();
+		towers = Collections.synchronizedList(new ArrayList<>());
+		enemies = Collections.synchronizedList(new ArrayList<>());
+		bullets = Collections.synchronizedList(new ArrayList<>());
 
 		init();
 	}
-	
+
 	public void setLevelButton(Button levelButton) {
 		this.levelButton = levelButton;
 		this.levelButton.setOnAction((ActionEvent e) -> {
@@ -74,26 +76,26 @@ public class Game extends Canvas {
 			this.levelButton.setVisible(false);
 		});
 	}
-	
+
 	public void onLevelDone() {
 		levelButton.setVisible(true);
 	}
-	
+
 	public int getMoney() {
 		return money;
 	}
-	
+
 	public void buyTower(int cost) {
 		money -= cost;
 	}
-	
+
 	public void setSelectedTower(Tower t) {
 		selectedTower = t;
 	}
-	
+
 	private void init() {
 		// TODO
-		
+
 		gridSet = new Image[13];
 		gridSet[0] = new Image("file:img/PNG/Retina/towerDefense_tile162.png");
 		gridSet[1] = new Image("file:img/PNG/Retina/towerDefense_tile254.png");
@@ -113,11 +115,11 @@ public class Game extends Canvas {
 			mx = (int) e.getX();
 			my = (int) e.getY();
 		});
-		
+
 		setOnMouseExited((MouseEvent e) -> {
 			contained = false;
 		});
-		
+
 		setOnMouseEntered((MouseEvent e) -> {
 			contained = true;
 		});
@@ -125,9 +127,7 @@ public class Game extends Canvas {
 		setOnMouseClicked((MouseEvent e) -> {
 			selectedTower = handleMouseClick(e, grid, towers, selectedTower);
 		});
-		
-		
-		
+
 	}
 
 	public void repaint() {
@@ -159,12 +159,12 @@ public class Game extends Canvas {
 		for (Bullet b : bullets) {
 			b.draw(gc);
 		}
-		
+
 		// DRAW THE SELECTED TOWER
 		if (selectedTower != null && contained) {
 			if (grid[my / TILE_SIZE][mx / TILE_SIZE] == 0 && !collides(towers, mx, my)) {
 				selectedTower.draw(gc, mx, my);
-				
+
 				int range = Tower.getRange(selectedTower);
 				gc.setStroke(Color.RED);
 				gc.strokeOval(mx - range, my - range, range * 2, range * 2);
@@ -176,34 +176,38 @@ public class Game extends Canvas {
 	}
 
 	public void update() {
-		Iterator<Bullet> bIterator = bullets.iterator();
+		synchronized (bullets) {
+			Iterator<Bullet> bIterator = bullets.iterator();
 
-		while (bIterator.hasNext()) {
-			Bullet b = bIterator.next();
+			while (bIterator.hasNext()) {
+				Bullet b = bIterator.next();
 
-			b.move();
+				b.move();
 
-			if (b.collided()) {
-				b.doDamage();
-				bIterator.remove();
-				b = null;
+				if (b.collided()) {
+					b.doDamage();
+					bIterator.remove();
+					b = null;
+				}
 			}
 		}
 
-		Iterator<Enemy> eIterator = enemies.iterator();
+		synchronized (enemies) {
+			Iterator<Enemy> eIterator = enemies.iterator();
 
-		while (eIterator.hasNext()) {
-			Enemy e = eIterator.next();
+			while (eIterator.hasNext()) {
+				Enemy e = eIterator.next();
 
-			if (e.isDead()) {
-				eIterator.remove();
-				e = null;
-				continue;
+				if (e.isDead()) {
+					eIterator.remove();
+					e = null;
+					continue;
+				}
+
+				e.move(route);
 			}
-
-			e.move(route);
 		}
-
+		
 		for (Tower t : towers) {
 			for (Enemy e : enemies) {
 				if (t.distance(e) < t.getRange() && t.canFire()) {
