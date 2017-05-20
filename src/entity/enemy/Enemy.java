@@ -13,12 +13,18 @@ public abstract class Enemy extends Entity {
 	private char dir;
 	private double rotationAngle, speed;
 	
+	int reward = 1;
+	
 	Image img;
 	
 	public Enemy(double x, double y, int health, double speed) {
 		super(x, y);
 		this.health = health;
 		this.speed = speed;
+	}
+	
+	public int getReward() {
+		return reward;
 	}
 	
 	public void setDir(char dir) {
@@ -101,7 +107,6 @@ public abstract class Enemy extends Entity {
 		gc.setTransform(r.getMxx(), r.getMyx(), r.getMxy(), r.getMyy(), r.getTx(), r.getTy());
 		gc.drawImage(img, xi, yi, TILE_SIZE, TILE_SIZE);
 		gc.restore();
-		gc.fillText(health + "", xi, yi);
 	}
 	
 }

@@ -52,7 +52,7 @@ public class Game extends Canvas {
 	private List<Enemy> enemies;
 	private List<Bullet> bullets;
 
-	private int mx, my, money = 10000, levelNum = 1;
+	private int mx, my, money = 50, levelNum = 1;
 	private Tower selectedTower;
 	private Button levelButton;
 
@@ -182,6 +182,8 @@ public class Game extends Canvas {
 				gc.fillOval(mx, my, 5, 5);
 			}
 		}
+		
+		gc.fillText("Money: " + money, 100, 100);
 
 	}
 
@@ -210,6 +212,7 @@ public class Game extends Canvas {
 
 				if (e.isDead()) {
 					eIterator.remove();
+					money += e.getReward();
 					e = null;
 					continue;
 				}

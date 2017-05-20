@@ -25,7 +25,7 @@ public class Level implements Runnable {
 	public void run() {
 		
 		while (count > 0) {
-			game.addEnemy(new BossEnemy(-1 * TILE_SIZE, 8 * TILE_SIZE));
+			game.addEnemy(new SimpleEnemy(-1 * TILE_SIZE, 8 * TILE_SIZE));
 			count--;
 			
 			long endTick = Main.CURRENT_GAME_TICK + 100;

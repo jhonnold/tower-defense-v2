@@ -38,7 +38,7 @@ public abstract class Bullet extends Entity {
 		double xi = getX() - TILE_SIZE / 2;
 		double yi = getY() - TILE_SIZE / 2;
 		
-		double dy = (double) TILE_SIZE * .5 + Math.sin(Math.toRadians(rotationAngle + 180));
+		double dy = (double) TILE_SIZE * .40 + Math.sin(Math.toRadians(rotationAngle + 180));
 		
 		Rotate r;
 		

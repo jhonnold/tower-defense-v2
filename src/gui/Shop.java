@@ -29,8 +29,8 @@ public class Shop extends VBox {
 		simpleTower.setStyle("-fx-background-radius: 128em; ");
 
 		simpleTower.setOnAction((ActionEvent e) -> {
-			if (game.getMoney() >= 100) {
-				game.buyTower(100);
+			if (game.getMoney() >= 10) {
+				game.buyTower(10);
 				game.setSelectedTower(new SimpleTower(0, 0));
 			}
 		});
@@ -43,8 +43,8 @@ public class Shop extends VBox {
 		speedTower.setStyle("-fx-background-radius: 128em; ");
 
 		speedTower.setOnAction((ActionEvent e) -> {
-			if (game.getMoney() >= 250) {
-				game.buyTower(250);
+			if (game.getMoney() >= 25) {
+				game.buyTower(25);
 				game.setSelectedTower(new SpeedTower(0, 0));
 			}
 		});
@@ -57,8 +57,8 @@ public class Shop extends VBox {
 		rangeTower.setStyle("-fx-background-radius: 64em; ");
 		
 		rangeTower.setOnAction((ActionEvent e) -> {
-			if (game.getMoney() >= 250) {
-				game.buyTower(250);
+			if (game.getMoney() >= 25) {
+				game.buyTower(25);
 				game.setSelectedTower(new RangeTower(0, 0));
 			}
 		});
@@ -71,8 +71,8 @@ public class Shop extends VBox {
 		powerTower.setStyle("-fx-background-radius: 64em; ");
 		
 		powerTower.setOnAction((ActionEvent e) -> {
-			if (game.getMoney() >= 250) {
-				game.buyTower(250);
+			if (game.getMoney() >= 25) {
+				game.buyTower(25);
 				game.setSelectedTower(new PowerTower(0, 0));
 			}
 		});

@@ -10,6 +10,7 @@ public class DurableEnemy extends Enemy {
 		super(x, y, 25, .5);
 		img = new Image(IMAGE_URL);
 		setDir('E');
+		reward = 3;
 	}
 	
 }
