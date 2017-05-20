@@ -6,6 +6,7 @@ import java.util.List;
 
 import entity.Entity;
 import entity.tower.PowerTower;
+import entity.tower.RangeTower;
 import entity.tower.SimpleTower;
 import entity.tower.Tower;
 import javafx.scene.input.MouseEvent;
@@ -26,6 +27,9 @@ public class InputHandler {
 				return null;
 			} else if (selectedTower instanceof PowerTower) {
 				towers.add(new PowerTower(mx, my));
+				return null;
+			} else if (selectedTower instanceof RangeTower) {
+				towers.add(new RangeTower(mx, my));
 				return null;
 			}
 		}

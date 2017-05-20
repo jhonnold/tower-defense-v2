@@ -10,15 +10,15 @@ import javafx.scene.transform.Rotate;
 
 public abstract class Bullet extends Entity {
 	
-	int speed, damage;
+	int damage;
 	Enemy enemy;
 	
-	double rotationAngle = 0;
+	double speed, rotationAngle = 0;
 	
 	Image img;
 	Image flames;
 	
-	public Bullet(double x, double y, Enemy enemy, int speed, int damage) {
+	public Bullet(double x, double y, Enemy enemy, double speed, int damage) {
 		super(x, y);
 		this.enemy = enemy;
 		this.speed = speed;
