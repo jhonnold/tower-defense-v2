@@ -5,6 +5,7 @@ import static gui.Game.TILE_SIZE;
 import java.util.List;
 
 import entity.Entity;
+import entity.tower.SpeedTower;
 import entity.tower.PowerTower;
 import entity.tower.RangeTower;
 import entity.tower.SimpleTower;
@@ -25,11 +26,14 @@ public class InputHandler {
 			if (selectedTower instanceof SimpleTower) {
 				towers.add(new SimpleTower(mx, my));
 				return null;
-			} else if (selectedTower instanceof PowerTower) {
-				towers.add(new PowerTower(mx, my));
+			} else if (selectedTower instanceof SpeedTower) {
+				towers.add(new SpeedTower(mx, my));
 				return null;
 			} else if (selectedTower instanceof RangeTower) {
 				towers.add(new RangeTower(mx, my));
+				return null;
+			} else if (selectedTower instanceof PowerTower) {
+				towers.add(new PowerTower(mx, my));
 				return null;
 			}
 		}

@@ -9,7 +9,7 @@ import javafx.scene.transform.Rotate;
 
 public class DoubleBullet extends Bullet {
 	
-	public static final int DAMAGE = 3;
+	public static final int DAMAGE = 1;
 	public static final int SPEED = 4;
 	public static final String IMAGE_URL = "file:img/PNG/Retina/towerDefense_tile273.png";
 	

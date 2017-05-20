@@ -1,5 +1,6 @@
 package gui;
 
+import entity.tower.SpeedTower;
 import entity.tower.PowerTower;
 import entity.tower.RangeTower;
 import entity.tower.SimpleTower;
@@ -36,19 +37,19 @@ public class Shop extends VBox {
 
 		getChildren().add(simpleTower);
 
-		ImageView powerTowerImg = new ImageView(new Image(PowerTower.IMAGE_URL));
+		ImageView speedTowerImg = new ImageView(new Image(SpeedTower.IMAGE_URL));
 
-		Button powerTower = new Button(null, powerTowerImg);
-		powerTower.setStyle("-fx-background-radius: 128em; ");
+		Button speedTower = new Button(null, speedTowerImg);
+		speedTower.setStyle("-fx-background-radius: 128em; ");
 
-		powerTower.setOnAction((ActionEvent e) -> {
+		speedTower.setOnAction((ActionEvent e) -> {
 			if (game.getMoney() >= 250) {
 				game.buyTower(250);
-				game.setSelectedTower(new PowerTower(0, 0));
+				game.setSelectedTower(new SpeedTower(0, 0));
 			}
 		});
 
-		getChildren().add(powerTower);
+		getChildren().add(speedTower);
 
 		ImageView rangeTowerImg = new ImageView(new Image(RangeTower.IMAGE_URL));
 
@@ -63,6 +64,20 @@ public class Shop extends VBox {
 		});
 		
 		getChildren().add(rangeTower);
+		
+		ImageView powerTowerImg = new ImageView(new Image(PowerTower.IMAGE_URL));
+		
+		Button powerTower = new Button(null, powerTowerImg);
+		powerTower.setStyle("-fx-background-radius: 64em; ");
+		
+		powerTower.setOnAction((ActionEvent e) -> {
+			if (game.getMoney() >= 250) {
+				game.buyTower(250);
+				game.setSelectedTower(new PowerTower(0, 0));
+			}
+		});
+		
+		getChildren().add(powerTower);
 
 		Button quit = new Button("Quit");
 		quit.setOnAction((ActionEvent e) -> {

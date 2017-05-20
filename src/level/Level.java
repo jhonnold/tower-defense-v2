@@ -2,7 +2,10 @@ package level;
 
 import static gui.Game.TILE_SIZE;
 
+import entity.enemy.BossEnemy;
+import entity.enemy.DurableEnemy;
 import entity.enemy.SimpleEnemy;
+import entity.enemy.SpeedEnemy;
 import gui.Game;
 import main.Main;
 
@@ -22,7 +25,7 @@ public class Level implements Runnable {
 	public void run() {
 		
 		while (count > 0) {
-			game.addEnemy(new SimpleEnemy(-1 * TILE_SIZE, 8 * TILE_SIZE));
+			game.addEnemy(new BossEnemy(-1 * TILE_SIZE, 8 * TILE_SIZE));
 			count--;
 			
 			long endTick = Main.CURRENT_GAME_TICK + 100;

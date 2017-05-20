@@ -13,7 +13,7 @@ public abstract class Bullet extends Entity {
 	int damage;
 	Enemy enemy;
 	
-	double speed, rotationAngle = 0;
+	double speed, rotationAngle;
 	
 	Image img;
 	Image flames;
@@ -23,6 +23,13 @@ public abstract class Bullet extends Entity {
 		this.enemy = enemy;
 		this.speed = speed;
 		this.damage = damage;
+		
+		double dx = enemy.getX() - getX();
+		double dy = enemy.getY() - getY();
+		
+		double angle = Math.atan2(dy, dx);
+		
+		rotationAngle = Math.toDegrees(angle) + 90;
 	}
 
 	@Override
@@ -52,15 +59,22 @@ public abstract class Bullet extends Entity {
 	
 	public void move() {
 		
-		double dx = enemy.getX() - getX();
-		double dy = enemy.getY() - getY();
-		
-		double angle = Math.atan2(dy, dx);
-		
-		rotationAngle = Math.toDegrees(angle) + 90;
-		
-		setX(getX() + speed * Math.cos(angle));
-		setY(getY() + speed * Math.sin(angle));
+		if (!enemy.isDead()) {
+			double dx = enemy.getX() - getX();
+			double dy = enemy.getY() - getY();
+			
+			double angle = Math.atan2(dy, dx);
+			
+			rotationAngle = Math.toDegrees(angle) + 90;
+			
+			setX(getX() + speed * Math.cos(angle));
+			setY(getY() + speed * Math.sin(angle));
+		} else {
+			double angle = Math.toRadians(rotationAngle - 90);
+			
+			setX(getX() + speed * Math.cos(angle));
+			setY(getY() + speed * Math.sin(angle));
+		}
 		
 	}
 	
@@ -69,6 +83,11 @@ public abstract class Bullet extends Entity {
 	}
 	
 	public boolean collided() {
+		
+		if (enemy.isDead()) {
+			return false;
+		}
+		
 		return distance(enemy) <= 5;
 	}
 	

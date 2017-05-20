@@ -175,7 +175,7 @@ public class Game extends Canvas {
 			if (grid[my / TILE_SIZE][mx / TILE_SIZE] == 0 && !collides(towers, mx, my)) {
 				selectedTower.draw(gc, mx, my);
 
-				int range = Tower.getRange(selectedTower);
+				int range = selectedTower.getRange();
 				gc.setStroke(Color.RED);
 				gc.strokeOval(mx - range, my - range, range * 2, range * 2);
 			} else {

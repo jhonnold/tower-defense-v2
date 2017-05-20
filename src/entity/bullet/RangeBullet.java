@@ -17,15 +17,8 @@ public class RangeBullet extends Bullet {
 	
 	@Override
 	public void move() {
-		double dx = enemy.getX() - getX();
-		double dy = enemy.getY() - getY();
 		
-		double angle = Math.atan2(dy, dx);
-		
-		rotationAngle = Math.toDegrees(angle) + 90;
-		
-		setX(getX() + speed * Math.cos(angle));
-		setY(getY() + speed * Math.sin(angle));
+		super.move();
 		
 		speed += .05;
 		

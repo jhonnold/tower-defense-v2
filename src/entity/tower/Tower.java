@@ -18,7 +18,7 @@ public abstract class Tower extends Entity {
 	Enemy lastEnemy;
 	double rotationAngle = 0;
 	
-	Image img, baseImg;
+	Image img, baseImg, blankImg;
 	
 	public Tower(int x, int y) {
 		super(x, y);
@@ -46,7 +46,13 @@ public abstract class Tower extends Entity {
 		Rotate r = new Rotate(rotationAngle, getX(), getY());
 		gc.save();
 		gc.setTransform(r.getMxx(), r.getMyx(), r.getMxy(), r.getMyy(), r.getTx(), r.getTy());
-		gc.drawImage(img, xi, yi, TILE_SIZE, TILE_SIZE);
+		
+		if (!canFire() && blankImg != null) {
+			gc.drawImage(blankImg, xi, yi, TILE_SIZE, TILE_SIZE);
+		} else {
+			gc.drawImage(img, xi, yi, TILE_SIZE, TILE_SIZE);
+		}
+		
 		gc.restore();
 		
 	}
@@ -82,13 +88,4 @@ public abstract class Tower extends Entity {
 			rotationAngle = Math.toDegrees(Math.atan2(dx, -1 * dy));
 		}
 	}
-	
-	public static int getRange(Tower t) {
-		if (t instanceof SimpleTower) {
-			return SimpleTower.RANGE;
-		} else {
-			return 0;
-		}
-	}
-	
 }

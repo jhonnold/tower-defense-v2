@@ -9,13 +9,13 @@ import javafx.scene.transform.Rotate;
 
 public abstract class Enemy extends Entity {
 	
-	private int health, speed;
+	private int health;
 	private char dir;
-	private double rotationAngle;
+	private double rotationAngle, speed;
 	
 	Image img;
 	
-	public Enemy(int x, int y, int health, int speed) {
+	public Enemy(double x, double y, int health, double speed) {
 		super(x, y);
 		this.health = health;
 		this.speed = speed;
