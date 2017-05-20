@@ -2,7 +2,11 @@ package entity.tower;
 
 import static gui.Game.TILE_SIZE;
 
+import entity.bullet.Bullet;
+import entity.bullet.MissileBullet;
+import entity.enemy.Enemy;
 import javafx.scene.image.Image;
+import main.Main;
 
 public class SimpleTower extends Tower {
 	
@@ -18,5 +22,14 @@ public class SimpleTower extends Tower {
 		damage = 1;
 		shotDelay = 100;
 	}
+
+	@Override
+	public Bullet fire(Enemy e) {
+		lastShotTime = Main.CURRENT_GAME_TICK;
+		lastEnemy = e;
+		return new MissileBullet(getX(), getY(), e);
+	}
+	
+	
 	
 }

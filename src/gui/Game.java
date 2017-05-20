@@ -92,6 +92,10 @@ public class Game extends Canvas {
 	public void setSelectedTower(Tower t) {
 		selectedTower = t;
 	}
+	
+	public void addEnemy(Enemy simpleEnemy) {
+		enemies.add(simpleEnemy);
+	}
 
 	private void init() {
 		// TODO
@@ -217,9 +221,5 @@ public class Game extends Canvas {
 			t.updateAngle();
 		}
 
-	}
-
-	public void addEnemy(Enemy simpleEnemy) {
-		enemies.add(simpleEnemy);
 	}
 }

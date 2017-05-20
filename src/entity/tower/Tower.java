@@ -13,10 +13,10 @@ import main.Main;
 public abstract class Tower extends Entity {
 	
 	int range, damage, shotDelay;
-	private long lastShotTime;
+	long lastShotTime;
 	
-	private Enemy lastEnemy;
-	private double rotationAngle = 0;
+	Enemy lastEnemy;
+	double rotationAngle = 0;
 	
 	Image img, baseImg;
 	
@@ -68,11 +68,7 @@ public abstract class Tower extends Entity {
 		}
 	}
 	
-	public Bullet fire(Enemy e) {
-		lastShotTime = Main.CURRENT_GAME_TICK;
-		lastEnemy = e;
-		return new Bullet(getX(), getY(), e, 2, damage);
-	}
+	public abstract Bullet fire(Enemy e);
 	
 	public void updateAngle() {
 		if (lastEnemy != null) {

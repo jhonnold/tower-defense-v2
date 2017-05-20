@@ -22,8 +22,6 @@ public class InputHandler {
 		int my = (int) e.getY();
 		
 		if (grid[my / TILE_SIZE][mx / TILE_SIZE] == 0 && !collides(towers, mx, my)) {
-			//towers.add(new SimpleTower(mx, my));
-			//return null;
 			if (selectedTower instanceof SimpleTower) {
 				towers.add(new SimpleTower(mx, my));
 				return null;

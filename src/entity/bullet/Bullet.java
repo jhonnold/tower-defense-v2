@@ -8,7 +8,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.transform.Rotate;
 
-public class Bullet extends Entity {
+public abstract class Bullet extends Entity {
 	
 	private int speed, damage;
 	private Enemy enemy;
@@ -23,10 +23,6 @@ public class Bullet extends Entity {
 		this.enemy = enemy;
 		this.speed = speed;
 		this.damage = damage;
-		
-		img = new Image("file:img/PNG/Retina/towerDefense_tile251.png");
-		flames = new Image("file:img/PNG/Retina/towerDefense_tile295.png");
-		
 	}
 
 	@Override
@@ -37,12 +33,16 @@ public class Bullet extends Entity {
 		
 		double dy = (double) TILE_SIZE * .5 + Math.sin(Math.toRadians(rotationAngle + 180));
 		
-		Rotate r = new Rotate(rotationAngle + 180, getX(), getY());
-		gc.save();
-		gc.setTransform(r.getMxx(), r.getMyx(), r.getMxy(), r.getMyy(), r.getTx(), r.getTy());
-		gc.drawImage(flames, xi, yi - dy, TILE_SIZE, TILE_SIZE);
-		gc.restore();
+		Rotate r;
 		
+		if (flames != null) {
+			r = new Rotate(rotationAngle + 180, getX(), getY());
+			gc.save();
+			gc.setTransform(r.getMxx(), r.getMyx(), r.getMxy(), r.getMyy(), r.getTx(), r.getTy());
+			gc.drawImage(flames, xi, yi - dy, TILE_SIZE, TILE_SIZE);
+			gc.restore();
+		}
+			
 		r = new Rotate(rotationAngle, getX(), getY());
 		gc.save();
 		gc.setTransform(r.getMxx(), r.getMyx(), r.getMxy(), r.getMyy(), r.getTx(), r.getTy());
