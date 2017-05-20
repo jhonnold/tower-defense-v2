@@ -1,6 +1,7 @@
 package gui;
 
-import entity.SimpleTower;
+import entity.tower.PowerTower;
+import entity.tower.SimpleTower;
 import javafx.event.ActionEvent;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -35,6 +36,22 @@ public class Shop extends VBox {
 		});
 		
 		getChildren().add(simpleTower);
+		
+		ImageView powerTowerImg = new ImageView(new Image(PowerTower.IMAGE_URL));
+		
+		Button powerTower = new Button(null, powerTowerImg);
+		powerTower.setStyle(
+			"-fx-background-radius: 128em; "
+		);
+		
+		powerTower.setOnAction((ActionEvent e) -> {
+			if (game.getMoney() >= 250) {
+				game.buyTower(250);
+				game.setSelectedTower(new PowerTower(0, 0));
+			}
+		});
+		
+		getChildren().add(powerTower);
 		
 		Button quit = new Button("Quit");
 		quit.setOnAction((ActionEvent e) -> {

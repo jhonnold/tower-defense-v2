@@ -2,7 +2,7 @@ package level;
 
 import static gui.Game.TILE_SIZE;
 
-import entity.SimpleEnemy;
+import entity.enemy.SimpleEnemy;
 import gui.Game;
 import main.Main;
 

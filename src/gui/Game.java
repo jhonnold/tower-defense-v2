@@ -7,9 +7,9 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
-import entity.Bullet;
-import entity.Enemy;
-import entity.Tower;
+import entity.bullet.Bullet;
+import entity.enemy.Enemy;
+import entity.tower.Tower;
 import javafx.event.ActionEvent;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;

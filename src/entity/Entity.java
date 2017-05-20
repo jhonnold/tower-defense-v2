@@ -4,7 +4,7 @@ import javafx.scene.canvas.GraphicsContext;
 
 public abstract class Entity {
 	
-	double x, y;
+	private double x, y;
 	
 	public Entity(double x, double y) {
 		this.x = x;
@@ -17,6 +17,14 @@ public abstract class Entity {
 	
 	public double getY() {
 		return y;
+	}
+	
+	public void setX(double x) {
+		this.x = x;
+	}
+	
+	public void setY(double y) {
+		this.y = y;
 	}
 	
 	public double distance(Entity e) {

@@ -1,7 +1,10 @@
-package entity;
+package entity.tower;
 
 import static gui.Game.TILE_SIZE;
 
+import entity.Entity;
+import entity.bullet.Bullet;
+import entity.enemy.Enemy;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.transform.Rotate;
@@ -15,7 +18,7 @@ public abstract class Tower extends Entity {
 	private Enemy lastEnemy;
 	private double rotationAngle = 0;
 	
-	Image img;
+	Image img, baseImg;
 	
 	public Tower(int x, int y) {
 		super(x, y);
@@ -33,10 +36,14 @@ public abstract class Tower extends Entity {
 	@Override
 	public void draw(GraphicsContext gc) {
 		
-		double xi = x - TILE_SIZE / 2;
-		double yi = y - TILE_SIZE / 2;
+		double xi = getX() - TILE_SIZE / 2;
+		double yi = getY() - TILE_SIZE / 2;
 		
-		Rotate r = new Rotate(rotationAngle, x, y);
+		if (baseImg != null) {
+			gc.drawImage(baseImg, xi, yi, TILE_SIZE, TILE_SIZE);
+		}
+		
+		Rotate r = new Rotate(rotationAngle, getX(), getY());
 		gc.save();
 		gc.setTransform(r.getMxx(), r.getMyx(), r.getMxy(), r.getMyy(), r.getTx(), r.getTy());
 		gc.drawImage(img, xi, yi, TILE_SIZE, TILE_SIZE);
@@ -64,13 +71,13 @@ public abstract class Tower extends Entity {
 	public Bullet fire(Enemy e) {
 		lastShotTime = Main.CURRENT_GAME_TICK;
 		lastEnemy = e;
-		return new Bullet(x, y, e, 2, damage);
+		return new Bullet(getX(), getY(), e, 2, damage);
 	}
 	
 	public void updateAngle() {
 		if (lastEnemy != null) {
-			double dx = lastEnemy.getX() - x;
-			double dy = lastEnemy.getY() - y;
+			double dx = lastEnemy.getX() - getX();
+			double dy = lastEnemy.getY() - getY();
 			
 			rotationAngle = Math.toDegrees(Math.atan2(dx, -1 * dy));
 		}

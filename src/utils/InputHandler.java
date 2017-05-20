@@ -6,8 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import entity.Entity;
-import entity.SimpleTower;
-import entity.Tower;
+import entity.tower.PowerTower;
+import entity.tower.SimpleTower;
+import entity.tower.Tower;
 import javafx.scene.input.MouseEvent;
 
 public class InputHandler {
@@ -21,8 +22,15 @@ public class InputHandler {
 		int my = (int) e.getY();
 		
 		if (grid[my / TILE_SIZE][mx / TILE_SIZE] == 0 && !collides(towers, mx, my)) {
-			towers.add(new SimpleTower(mx, my));
-			return null;
+			//towers.add(new SimpleTower(mx, my));
+			//return null;
+			if (selectedTower instanceof SimpleTower) {
+				towers.add(new SimpleTower(mx, my));
+				return null;
+			} else if (selectedTower instanceof PowerTower) {
+				towers.add(new PowerTower(mx, my));
+				return null;
+			}
 		}
 		
 		return selectedTower;

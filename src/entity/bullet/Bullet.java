@@ -1,7 +1,9 @@
-package entity;
+package entity.bullet;
 
 import static gui.Game.TILE_SIZE;
 
+import entity.Entity;
+import entity.enemy.Enemy;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.transform.Rotate;
@@ -30,18 +32,18 @@ public class Bullet extends Entity {
 	@Override
 	public void draw(GraphicsContext gc) {
 		
-		double xi = x - TILE_SIZE / 2;
-		double yi = y - TILE_SIZE / 2;
+		double xi = getX() - TILE_SIZE / 2;
+		double yi = getY() - TILE_SIZE / 2;
 		
 		double dy = (double) TILE_SIZE * .5 + Math.sin(Math.toRadians(rotationAngle + 180));
 		
-		Rotate r = new Rotate(rotationAngle + 180, x, y);
+		Rotate r = new Rotate(rotationAngle + 180, getX(), getY());
 		gc.save();
 		gc.setTransform(r.getMxx(), r.getMyx(), r.getMxy(), r.getMyy(), r.getTx(), r.getTy());
 		gc.drawImage(flames, xi, yi - dy, TILE_SIZE, TILE_SIZE);
 		gc.restore();
 		
-		r = new Rotate(rotationAngle, x, y);
+		r = new Rotate(rotationAngle, getX(), getY());
 		gc.save();
 		gc.setTransform(r.getMxx(), r.getMyx(), r.getMxy(), r.getMyy(), r.getTx(), r.getTy());
 		gc.drawImage(img, xi, yi, TILE_SIZE, TILE_SIZE);
@@ -50,15 +52,15 @@ public class Bullet extends Entity {
 	
 	public void move() {
 		
-		double dx = enemy.getX() - x;
-		double dy = enemy.getY() - y;
+		double dx = enemy.getX() - getX();
+		double dy = enemy.getY() - getY();
 		
 		double angle = Math.atan2(dy, dx);
 		
 		rotationAngle = Math.toDegrees(angle) + 90;
 		
-		x += speed * Math.cos(angle);
-		y += speed * Math.sin(angle);
+		setX(getX() + speed * Math.cos(angle));
+		setY(getY() + speed * Math.sin(angle));
 		
 	}
 	
