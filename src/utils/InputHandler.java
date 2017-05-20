@@ -2,7 +2,6 @@ package utils;
 
 import static gui.Game.TILE_SIZE;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import entity.Entity;

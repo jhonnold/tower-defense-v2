@@ -150,20 +150,26 @@ public class Game extends Canvas {
 		// -------------------
 
 		// DRAW TOWERS
-		for (Tower t : towers) {
-			t.draw(gc);
+		synchronized (towers) {
+			for (Tower t : towers) {
+				t.draw(gc);
+			}
 		}
-
+		
 		// DRAW ENEMIES
-		for (Enemy e : enemies) {
-			e.draw(gc);
+		synchronized (enemies) {
+			for (Enemy e : enemies) {
+				e.draw(gc);
+			}
 		}
-
+		
 		// DRAW BULETS
-		for (Bullet b : bullets) {
-			b.draw(gc);
+		synchronized (bullets) {
+			for (Bullet b : bullets) {
+				b.draw(gc);
+			}
 		}
-
+		
 		// DRAW THE SELECTED TOWER
 		if (selectedTower != null && contained) {
 			if (grid[my / TILE_SIZE][mx / TILE_SIZE] == 0 && !collides(towers, mx, my)) {

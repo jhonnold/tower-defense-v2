@@ -3,7 +3,7 @@ package entity.tower;
 import static gui.Game.TILE_SIZE;
 
 import entity.bullet.Bullet;
-import entity.bullet.MissileBullet;
+import entity.bullet.RegularBullet;
 import entity.enemy.Enemy;
 import javafx.scene.image.Image;
 import main.Main;
@@ -27,7 +27,11 @@ public class SimpleTower extends Tower {
 	public Bullet fire(Enemy e) {
 		lastShotTime = Main.CURRENT_GAME_TICK;
 		lastEnemy = e;
-		return new MissileBullet(getX(), getY(), e);
+		
+		double dy = (double) TILE_SIZE * .3 * Math.sin(Math.toRadians(rotationAngle - 90));
+		double dx = (double) TILE_SIZE * .3 * Math.cos(Math.toRadians(rotationAngle - 90));
+		
+		return new RegularBullet(getX() + dx, getY() + dy, e);
 	}
 	
 	

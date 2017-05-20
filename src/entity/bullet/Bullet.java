@@ -10,10 +10,10 @@ import javafx.scene.transform.Rotate;
 
 public abstract class Bullet extends Entity {
 	
-	private int speed, damage;
-	private Enemy enemy;
+	int speed, damage;
+	Enemy enemy;
 	
-	private double rotationAngle = 0;
+	double rotationAngle = 0;
 	
 	Image img;
 	Image flames;

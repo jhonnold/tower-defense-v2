@@ -55,6 +55,10 @@ public abstract class Tower extends Entity {
 		double xi = x - TILE_SIZE / 2;
 		double yi = y - TILE_SIZE / 2;
 		
+		if (baseImg != null) {
+			gc.drawImage(baseImg, xi, yi, TILE_SIZE, TILE_SIZE);
+		}
+		
 		gc.drawImage(img, xi, yi, TILE_SIZE, TILE_SIZE);
 	}
 	
