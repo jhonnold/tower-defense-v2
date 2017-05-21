@@ -11,7 +11,8 @@ import javafx.scene.transform.Rotate;
 import main.Main;
 
 public class PowerTower extends Tower {
-	
+
+	public static final int PRICE = 25;
 	public static final int RANGE = TILE_SIZE * 3;
 	public static final String BASE_IMAGE_URL = "file:img/PNG/Retina/towerDefense_tile181.png";
 	public static final String IMAGE_URL = "file:img/PNG/Retina/towerDefense_tile205.png";

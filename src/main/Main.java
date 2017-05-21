@@ -114,10 +114,10 @@ public class Main extends Application implements Runnable {
 		game.setLevelButton(levelButton);
 		
 		rightPane = ((Controller) fxmlLoader.getController()).getRightPane();
-		shop = new Shop();
+		shop = new Shop(rightPane);
 		shop.setGameListener(game);
 		shop.setMainListener(this);
-		rightPane.getChildren().add(shop);
+		//rightPane.getChildren().add(shop);
 		
 		primary.sizeToScene();
 		

@@ -9,7 +9,8 @@ import javafx.scene.image.Image;
 import main.Main;
 
 public class RangeTower extends Tower {
-	
+
+	public static final int PRICE = 25;
 	public static final int RANGE = TILE_SIZE * 7;
 	public static final String BASE_IMAGE_URL = "file:img/PNG/Retina/towerDefense_tile180.png";
 	public static final String IMAGE_URL = "file:img/PNG/Retina/towerDefense_tile206.png";

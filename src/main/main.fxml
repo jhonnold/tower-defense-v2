@@ -17,6 +17,6 @@
 	fx:controller="main.Controller">
 	<AnchorPane fx:id="leftPane">
 	</AnchorPane>
-	<AnchorPane fx:id="rightPane">
+	<AnchorPane fx:id="rightPane" style="-fx-background-image: url('/gui/rsc/background.png'); ">
 	</AnchorPane>
 </SplitPane>

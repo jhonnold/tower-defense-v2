@@ -10,6 +10,7 @@ import main.Main;
 
 public class SpeedTower extends Tower {
 
+	public static final int PRICE = 25;
 	public static final int RANGE = TILE_SIZE * 3;
 	public static final String BASE_IMAGE_URL = "file:img/PNG/Retina/towerDefense_tile182.png";
 	public static final String IMAGE_URL = "file:img/PNG/Retina/towerDefense_tile250.png";

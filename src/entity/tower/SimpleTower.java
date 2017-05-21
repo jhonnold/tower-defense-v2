@@ -9,7 +9,8 @@ import javafx.scene.image.Image;
 import main.Main;
 
 public class SimpleTower extends Tower {
-	
+
+	public static final int PRICE = 10;
 	public static final int RANGE = TILE_SIZE * 2;
 	public static final String BASE_IMAGE_URL = "file:img/PNG/Retina/towerDefense_tile180.png";
 	public static final String IMAGE_URL = "file:img/PNG/Retina/towerDefense_tile249.png";
