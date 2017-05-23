@@ -1,6 +1,5 @@
 package main;
 
-import com.jfoenix.controls.JFXButton;
 import gui.Game;
 import gui.MainMenu;
 import gui.Shop;
@@ -62,7 +61,7 @@ public class Main extends Application implements Runnable {
 
 		// Move the game into the leftPane
 		leftPane = ((Controller) fxmlLoader.getController()).getLeftPane();
-		new MainMenu(leftPane, this);
+		leftPane.getChildren().add(new MainMenu(this));
 
 		// Set the frame rate to ~60 FPS
 		Timeline animationLoop = new Timeline();
@@ -107,10 +106,9 @@ public class Main extends Application implements Runnable {
 		leftPane.getChildren().clear();
 		leftPane.getChildren().add(game);
 		
-		JFXButton levelButton = new JFXButton("Next Level");
+		Button levelButton = new Button("Next Level");
 		levelButton.setLayoutX(10);
 		levelButton.setLayoutY(10);
-		levelButton.setStyle("-fx-font: 32 'KenVector Future'; ");
 		
 		leftPane.getChildren().add(levelButton);
 		game.setLevelButton(levelButton);
@@ -133,7 +131,7 @@ public class Main extends Application implements Runnable {
 		leftPane.getChildren().clear();
 		rightPane.getChildren().clear();
 		
-		new MainMenu(leftPane, this);
+		leftPane.getChildren().add(new MainMenu(this));
 		
 		primary.sizeToScene();
 	}

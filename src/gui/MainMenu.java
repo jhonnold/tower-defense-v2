@@ -1,45 +1,22 @@
 package gui;
 
-import com.jfoenix.controls.JFXButton;
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.control.Button;
+import javafx.scene.layout.BorderPane;
 import main.Main;
 
-import java.io.IOException;
-
-public class MainMenu {
-
-	private FXMLLoader fxmlLoader;
-
-	public MainMenu(AnchorPane pane, Main m) {
-
-	    try {
-	        fxmlLoader = new FXMLLoader(getClass().getResource("mainmenu.fxml"));
-	        Parent root = fxmlLoader.load();
-	        pane.getChildren().add(root);
-
-            MainMenuController controller = fxmlLoader.getController();
-
-            JFXButton startButton = controller.getStartButton();
-            JFXButton quitButton = controller.getQuitButton();
-
-            startButton.setOnAction((ActionEvent e) -> {
-                m.startGame();
-            });
-
-            quitButton.setOnAction((ActionEvent e) -> {
-                Platform.exit();
-                System.exit(0);
-            });
-
-
-        } catch (IOException e) {
-	        e.printStackTrace();
-        }
-
+public class MainMenu extends BorderPane {
+	
+	public MainMenu(Main m) {
+		
+		setPrefSize(1024, 640);
+		
+		Button startButton = new Button("Start");
+		startButton.setOnAction((ActionEvent e) -> {
+			m.startGame();
+		});
+		
+		setCenter(startButton);
 	}
 	
 }
