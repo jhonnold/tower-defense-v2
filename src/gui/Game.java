@@ -129,7 +129,7 @@ public class Game extends Canvas {
 		});
 
 		setOnMouseClicked((MouseEvent e) -> {
-			selectedTower = handleMouseClick(e, grid, towers, selectedTower);
+			selectedTower = handleMouseClick(e, grid, towers, selectedTower, this);
 		});
 
 	}

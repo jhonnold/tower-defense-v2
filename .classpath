@@ -3,5 +3,10 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="lib" path="lib/jfoenix.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="lib/ejml-core-0.31.jar"/>
+	<classpathentry kind="lib" path="lib/ejml-ddense-0.31.jar"/>
+	<classpathentry kind="lib" path="lib/ejml-dsparse-0.31.jar"/>
+	<classpathentry kind="lib" path="lib/ejml-experimental-0.31.jar"/>
+	<classpathentry kind="lib" path="lib/ejml-simple-0.31.jar"/>
 	<classpathentry kind="output" path="out/production/tower-defense"/>
 </classpath>

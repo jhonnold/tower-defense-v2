@@ -10,7 +10,6 @@ import gui.Game;
 import main.Main;
 import org.ejml.data.*;
 import org.ejml.dense.fixed.*;
-import java.util.Random;
 
 public class Level implements Runnable {
 	
@@ -24,6 +23,8 @@ public class Level implements Runnable {
 													.075, .45, .45, .1,
 													.075, .45, .45, .1,
 													0, .1, .1, .8);
+	
+	private static DMatrix4 enemyDensity;
 
 	// Arbitrary difficulties assigned for each enemy type - should be tweaked for optimal level fun.
 	private double e1_strength = 1;
@@ -36,19 +37,16 @@ public class Level implements Runnable {
 		this.level = level;
 	}
 
-	public double[] enemyTypes() {
-
-		DMatrix4 start = new DMatrix4(1,0,0,0);
-		CommonOps_DDF4 op = new CommonOps_DDF4();
-
-		for(int i = 0; i < level; i++) {
-			DMatrix4 start_temp = new DMatrix4();
-			op.mult(transitions, start, start_temp);
-			start = start_temp;
+	public void updateEnemyDensityMatrix() {
+		
+		if (enemyDensity != null) {
+			DMatrix4 result = new DMatrix4();
+			CommonOps_DDF4.mult(transitions, enemyDensity, result);
+			enemyDensity = result;	
+		} else {
+			enemyDensity = new DMatrix4(1, 0, 0, 0);
 		}
-
-		double array[] = {start.a1, start.a2, start.a3, start.a4};
-		return array;
+		
 	}
 
 	public void run() {
@@ -57,26 +55,27 @@ public class Level implements Runnable {
 		double b = 1.5;
 		double k = -1;
 
+		int sx = -1 * TILE_SIZE;
+		int sy = 8 * TILE_SIZE;
+		
 		double count = a * Math.pow(b, (double)level + k);
-		Random rand = new Random();
 
-		double[] probs = enemyTypes();
-		System.out.println(probs[0] + " " + probs[1] + " " + probs[2] + " " + probs[3]);
+		updateEnemyDensityMatrix();
 
 		while(count >= 0) {
-			double temp = rand.nextDouble();
-			temp = temp - Math.floor(temp);
-			if (temp < probs[0]) {
-				game.addEnemy(new SimpleEnemy(-1 * TILE_SIZE, 8 * TILE_SIZE));
+			double temp = Math.random();
+			
+			if (temp < enemyDensity.a1) {
+				game.addEnemy(new SimpleEnemy(sx, sy));
 				count -= e1_strength;
-			} else if (temp < probs[0] + probs[1]) {
-				game.addEnemy(new SpeedEnemy(-1 * TILE_SIZE, 8 * TILE_SIZE));
+			} else if (temp < enemyDensity.a1 + enemyDensity.a2) {
+				game.addEnemy(new SpeedEnemy(sx, sy));
 				count -= e2_strength;
-			} else if (temp < probs[0] + probs[1] + probs[2]) {
-				game.addEnemy(new DurableEnemy(-1 * TILE_SIZE, 8 * TILE_SIZE));
+			} else if (temp < enemyDensity.a1 + enemyDensity.a2 + enemyDensity.a3) {
+				game.addEnemy(new DurableEnemy(sx, sy));
 				count -= e3_strength;
 			} else {
-				game.addEnemy(new BossEnemy(-1 * TILE_SIZE, 8 * TILE_SIZE));
+				game.addEnemy(new BossEnemy(sx, sy));
 				count -= e4_strength;
 			}
 

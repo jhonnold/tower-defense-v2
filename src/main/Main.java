@@ -61,7 +61,7 @@ public class Main extends Application implements Runnable {
 
 		// Move the game into the leftPane
 		leftPane = ((Controller) fxmlLoader.getController()).getLeftPane();
-		leftPane.getChildren().add(new MainMenu(this));
+		new MainMenu(leftPane, this);
 
 		// Set the frame rate to ~60 FPS
 		Timeline animationLoop = new Timeline();
@@ -131,7 +131,7 @@ public class Main extends Application implements Runnable {
 		leftPane.getChildren().clear();
 		rightPane.getChildren().clear();
 		
-		leftPane.getChildren().add(new MainMenu(this));
+		new MainMenu(leftPane, this);
 		
 		primary.sizeToScene();
 	}
