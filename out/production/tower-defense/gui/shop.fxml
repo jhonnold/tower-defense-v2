@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox accessibleRole="BUTTON" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.ShopController">
+    <children>
+        <Label accessibleRole="BUTTON" alignment="CENTER" contentDisplay="TOP" graphicTextGap="0.0" text="Store" textAlignment="JUSTIFY" textOverrun="CLIP">
+            <font>
+                <Font name="KenVector Future Regular" size="32.0" />
+            </font>
+            <!--<effect>-->
+                <!--<DropShadow/>-->
+            <!--</effect>-->
+        </Label>
+        <JFXButton fx:id="simpleTowerButton" alignment="CENTER" contentDisplay="TOP" text="Simple Tower" textAlignment="CENTER" textOverrun="CLIP">
+            <font>
+                <Font name="KenVector Future Regular" size="13.0" />
+            </font>
+            <graphic>
+                <ImageView fitHeight="96.0" fitWidth="96.0">
+                    <image>
+                        <Image url="/gui/rsc/SimpleTower.png" />
+                    </image>
+                </ImageView>
+            </graphic>
+            <effect>
+                <DropShadow />
+            </effect>
+        </JFXButton>
+        <JFXButton fx:id="speedTowerButton" alignment="CENTER" contentDisplay="TOP" text="Speed Tower">
+            <graphic>
+                <ImageView fitHeight="96.0" fitWidth="96.0">
+                    <image>
+                        <Image url="/gui/rsc/SpeedTower.png" />
+                    </image>
+                </ImageView>
+            </graphic>
+            <font>
+                <Font name="KenVector Future Regular" size="13.0" />
+            </font>
+            <effect>
+                <DropShadow />
+            </effect>
+        </JFXButton>
+        <JFXButton fx:id="rangeTowerButton" alignment="CENTER" contentDisplay="TOP" text="Range Tower">
+            <graphic>
+                <ImageView fitHeight="96.0" fitWidth="96.0">
+                    <image>
+                        <Image url="/gui/rsc/RangeTower.png" />
+                    </image>
+                </ImageView>
+            </graphic>
+            <font>
+                <Font name="KenVector Future Regular" size="13.0" />
+            </font>
+            <effect>
+                <DropShadow />
+            </effect>
+        </JFXButton>
+        <JFXButton fx:id="powerTowerButton" alignment="CENTER" contentDisplay="TOP" text="Power Tower">
+            <graphic>
+                <ImageView fitHeight="96.0" fitWidth="96.0">
+                    <image>
+                        <Image url="/gui/rsc/PowerTower.png" />
+                    </image>
+                </ImageView>
+            </graphic>
+            <font>
+                <Font name="KenVector Future Regular" size="13.0" />
+            </font>
+            <effect>
+                <DropShadow />
+            </effect>
+        </JFXButton>
+    </children>
+</VBox>
