@@ -9,11 +9,9 @@ import javafx.scene.transform.Rotate;
 
 public abstract class Enemy extends Entity {
 	
-	private int health;
-	private char dir;
-	private double rotationAngle, speed;
-	
-	int reward = 1;
+	int health, reward = 1, distance;
+	char dir;
+	double rotationAngle, speed;
 	
 	Image img;
 	
@@ -21,10 +19,15 @@ public abstract class Enemy extends Entity {
 		super(x, y);
 		this.health = health;
 		this.speed = speed;
+		distance = 0;
 	}
 	
 	public int getReward() {
 		return reward;
+	}
+	
+	public int getDistanceTraveled() {
+		return distance;
 	}
 	
 	public void setDir(char dir) {
@@ -94,6 +97,8 @@ public abstract class Enemy extends Entity {
 		default:
 			break;
 		}
+		
+		distance += speed;
 	}
 	
 	@Override

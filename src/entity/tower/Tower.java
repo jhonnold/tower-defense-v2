@@ -14,15 +14,14 @@ public abstract class Tower extends Entity {
 	
 	int range, damage, shotDelay;
 	long lastShotTime;
-	
-	Enemy lastEnemy;
 	double rotationAngle = 0;
 	
+	Enemy lastEnemy;
 	Image img, baseImg, blankImg;
 	
 	public Tower(int x, int y) {
 		super(x, y);
-		lastShotTime = -100;
+		lastShotTime = Main.CURRENT_GAME_TICK - 100;
 	}
 	
 	public int getRange() {
@@ -71,11 +70,7 @@ public abstract class Tower extends Entity {
 	public boolean canFire() {
 		int dt = (int)(Main.CURRENT_GAME_TICK - lastShotTime);
 		
-		if (dt >= shotDelay) {
-			return true;
-		} else {
-			return false;
-		}
+		return dt >= shotDelay;
 	}
 	
 	public abstract Bullet fire(Enemy e);
@@ -85,7 +80,7 @@ public abstract class Tower extends Entity {
 			double dx = lastEnemy.getX() - getX();
 			double dy = lastEnemy.getY() - getY();
 			
-			rotationAngle = Math.toDegrees(Math.atan2(dx, -1 * dy));
+			rotationAngle = Math.toDegrees(Math.atan2(dx, -dy));
 		}
 	}
 }

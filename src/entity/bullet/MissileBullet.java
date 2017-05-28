@@ -6,7 +6,7 @@ import javafx.scene.image.Image;
 public class MissileBullet extends Bullet {
 	
 	public static final int DAMAGE = 3;
-	public static final int SPEED = 3;
+	public static final int SPEED = 4;
 	public static final String IMAGE_URL = "file:img/PNG/Retina/towerDefense_tile251.png";
 	public static final String FLAMES_IMAGE_URL = "file:img/PNG/Retina/towerDefense_tile295.png";
 	

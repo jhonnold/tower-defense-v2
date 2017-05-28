@@ -92,7 +92,7 @@ public class Game extends Canvas {
 	public void setSelectedTower(Tower t) {
 		selectedTower = t;
 	}
-	
+
 	public void addEnemy(Enemy simpleEnemy) {
 		enemies.add(simpleEnemy);
 	}
@@ -155,21 +155,21 @@ public class Game extends Canvas {
 				t.draw(gc);
 			}
 		}
-		
+
 		// DRAW ENEMIES
 		synchronized (enemies) {
 			for (Enemy e : enemies) {
 				e.draw(gc);
 			}
 		}
-		
+
 		// DRAW BULETS
 		synchronized (bullets) {
 			for (Bullet b : bullets) {
 				b.draw(gc);
 			}
 		}
-		
+
 		// DRAW THE SELECTED TOWER
 		if (selectedTower != null && contained) {
 			if (grid[my / TILE_SIZE][mx / TILE_SIZE] == 0 && !collides(towers, mx, my)) {
@@ -182,7 +182,7 @@ public class Game extends Canvas {
 				gc.fillOval(mx, my, 5, 5);
 			}
 		}
-		
+
 		gc.fillText("Money: " + money, 100, 100);
 
 	}
@@ -220,15 +220,26 @@ public class Game extends Canvas {
 				e.move(route);
 			}
 		}
-		
+
 		for (Tower t : towers) {
+
+			Enemy frontEnemy = null;
+
 			for (Enemy e : enemies) {
-				if (t.distance(e) < t.getRange() && t.canFire()) {
-					bullets.add(t.fire(e));
+				if (e.distance(t) < t.getRange()) {
+					if (frontEnemy == null) {
+						frontEnemy = e;
+					} else if (e.getDistanceTraveled() > frontEnemy.getDistanceTraveled()) {
+						frontEnemy = e;
+					}
 				}
 			}
+			
+			if (frontEnemy != null && t.canFire()) {
+				bullets.add(t.fire(frontEnemy));
+			}
+			
 			t.updateAngle();
 		}
-
 	}
 }
