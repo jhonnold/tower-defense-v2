@@ -90,5 +90,9 @@ public abstract class Bullet extends Entity {
 		
 		return distance(enemy) <= 5;
 	}
+
+	public boolean offScreen() {
+		return (getX() < -TILE_SIZE || getX() > TILE_SIZE * 17 || getY() < -TILE_SIZE || getY() > 17 * TILE_SIZE);
+	}
 	
 }

@@ -67,6 +67,7 @@ public class Main extends Application implements Runnable {
 		Timeline animationLoop = new Timeline();
 		animationLoop.setCycleCount(Timeline.INDEFINITE);
 
+
 		KeyFrame kf = new KeyFrame(Duration.seconds(0.017), (ActionEvent event) -> {
 			if (game != null) {
 				game.repaint();

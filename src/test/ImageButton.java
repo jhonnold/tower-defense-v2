@@ -1,20 +1,16 @@
 package test;
 
-
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
 public class ImageButton extends ImageView {
 
-    Image up, down;
-
-
     public ImageButton(String upImage, String downImage) {
-        super(upImage);
+        Image up = new Image(upImage, 128, 128, true, true);
+        Image down = new Image(downImage, 128, 128, true, true);
 
-        up = new Image(upImage);
-        down = new Image(downImage);
+        setImage(up);
 
         setOnMousePressed((MouseEvent e) -> {
             setImage(down);

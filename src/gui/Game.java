@@ -72,6 +72,7 @@ public class Game extends Canvas {
 	public void setLevelButton(Button levelButton) {
 		this.levelButton = levelButton;
 		this.levelButton.setOnAction((ActionEvent e) -> {
+		    bullets.clear();
 			new Thread(new Level(levelNum++, this)).start();
 			this.levelButton.setVisible(false);
 		});
@@ -197,7 +198,10 @@ public class Game extends Canvas {
 				b.move();
 
 				if (b.collided()) {
-					b.doDamage();
+                    b.doDamage();
+                    bIterator.remove();
+                    b = null;
+                } else if (b.offScreen()) {
 					bIterator.remove();
 					b = null;
 				}
