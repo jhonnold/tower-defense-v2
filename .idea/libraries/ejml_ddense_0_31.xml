@@ -1,9 +1,0 @@
-<component name="libraryTable">
-  <library name="ejml-ddense-0.31">
-    <CLASSES>
-      <root url="jar://$PROJECT_DIR$/lib/ejml-ddense-0.31.jar!/" />
-    </CLASSES>
-    <JAVADOC />
-    <SOURCES />
-  </library>
-</component>
