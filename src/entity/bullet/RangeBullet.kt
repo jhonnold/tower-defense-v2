@@ -4,10 +4,9 @@ import entity.enemy.Enemy
 import javafx.scene.image.Image
 
 class RangeBullet(x: Double, y: Double, enemy: Enemy) : Bullet(x, y, enemy, RangeBullet.SPEED, RangeBullet.DAMAGE) {
+    override var img: Image = Image(IMAGE_URL)
 
     init {
-
-        img = Image(IMAGE_URL)
         flames = Image(FLAMES_IMAGE_URL)
     }
 

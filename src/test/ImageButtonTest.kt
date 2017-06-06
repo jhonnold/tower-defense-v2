@@ -5,9 +5,6 @@ import javafx.scene.Scene
 import javafx.scene.layout.BorderPane
 import javafx.stage.Stage
 
-/**
- * Created by Jay on 5/28/2017.
- */
 class ImageButtonTest : Application() {
 
     override fun start(primary: Stage) {
@@ -27,7 +24,7 @@ class ImageButtonTest : Application() {
     companion object {
 
         @JvmStatic fun main(args: Array<String>) {
-            Application.launch(*args)
+            launch(ImageButtonTest::class.java)
         }
     }
 

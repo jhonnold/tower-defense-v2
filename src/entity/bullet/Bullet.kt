@@ -8,9 +8,9 @@ import javafx.scene.image.Image
 import javafx.scene.transform.Rotate
 
 abstract class Bullet(x: Double, y: Double, internal var enemy: Enemy, internal var speed: Double, internal var damage: Int) : Entity(x, y) {
-    internal var rotationAngle: Double = 0.toDouble()
+    internal var rotationAngle: Double = 0.0
 
-    internal var img: Image? = null
+    internal abstract var img: Image
     internal var flames: Image? = null
 
     init {

@@ -1,14 +1,9 @@
 package utils
 
-import entity.Entity
-import entity.tower.SpeedTower
-import entity.tower.PowerTower
-import entity.tower.RangeTower
-import entity.tower.SimpleTower
-import entity.tower.Tower
+import entity.tower.*
 import gui.Game
+import gui.Game.Companion.TILE_SIZE
 import javafx.scene.input.MouseEvent
-import gui.Game.Companion.TILE_SIZE;
 
 object InputHandler {
 
@@ -45,12 +40,6 @@ object InputHandler {
 
     fun collides(list: Iterable<Tower>, mx: Int, my: Int): Boolean {
 
-        for (entity in list) {
-            if (entity.distance(mx, my) < TILE_SIZE.toDouble() * .6) {
-                return true
-            }
-        }
-
-        return false
+        return list.any { it.distance(mx, my) < TILE_SIZE.toDouble() * .6 }
     }
 }

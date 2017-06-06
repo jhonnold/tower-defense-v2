@@ -7,11 +7,7 @@ import javafx.scene.image.Image
 import javafx.scene.transform.Rotate
 
 class DoubleBullet(x: Double, y: Double, enemy: Enemy) : Bullet(x, y, enemy, DoubleBullet.SPEED, DoubleBullet.DAMAGE) {
-
-    init {
-
-        img = Image(IMAGE_URL)
-    }
+    override var img: Image = Image(IMAGE_URL)
 
     override fun draw(gc: GraphicsContext) {
 

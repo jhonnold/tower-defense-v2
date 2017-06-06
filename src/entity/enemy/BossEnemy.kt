@@ -3,9 +3,9 @@ package entity.enemy
 import javafx.scene.image.Image
 
 class BossEnemy(x: Int, y: Int) : Enemy(x.toDouble(), y.toDouble(), 20, 2.5) {
+    override var img: Image = Image(IMAGE_URL)
 
     init {
-        img = Image(IMAGE_URL)
         setDir('E')
         reward = 10
     }

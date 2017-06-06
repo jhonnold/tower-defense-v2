@@ -1,8 +1,5 @@
 package gui
 
-import java.util.ArrayList
-import java.util.Collections
-
 import entity.bullet.Bullet
 import entity.enemy.Enemy
 import entity.tower.Tower
@@ -15,10 +12,8 @@ import javafx.scene.paint.Color
 import level.Level
 import utils.InputHandler.collides
 import utils.InputHandler.handleMouseClick
+import java.util.*
 
-/**
- * Created by zomby on 5/10/17 @ 4:20 PM.
- */
 class Game(width: Int, height: Int) : Canvas(width.toDouble(), height.toDouble()) {
     private val GRID_WIDTH = 16
     private val GRID_HEIGHT = 10
@@ -29,55 +24,22 @@ class Game(width: Int, height: Int) : Canvas(width.toDouble(), height.toDouble()
 
     private val route = arrayOf(charArrayOf('X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'), charArrayOf('X', 'X', 'X', 'E', 'X', 'X', 'X', 'X', 'X', 'X', 'S', 'X', 'X', 'X', 'X'), charArrayOf('X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'), charArrayOf('X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'), charArrayOf('X', 'X', 'X', 'X', 'X', 'X', 'X', 'S', 'X', 'X', 'W', 'X', 'X', 'X', 'X'), charArrayOf('X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'), charArrayOf('X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'), charArrayOf('E', 'X', 'X', 'N', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'), charArrayOf('X', 'X', 'X', 'X', 'X', 'X', 'X', 'E', 'X', 'X', 'X', 'X', 'X', 'X', 'X'))
 
-    private val towers: MutableList<Tower>
-    private val enemies: MutableList<Enemy>
-    private val bullets: MutableList<Bullet>
+    private val towers: MutableList<Tower> = Collections.synchronizedList(ArrayList<Tower>())
+    private val enemies: MutableList<Enemy> = Collections.synchronizedList(ArrayList<Enemy>())
+    private val bullets: MutableList<Bullet> = Collections.synchronizedList(ArrayList<Bullet>())
 
     private var mx: Int = 0
     private var my: Int = 0
-    var money = 50
-        private set
-    private var levelNum = 1
+
+    internal var money = 50
+        get set
+
     private var selectedTower: Tower? = null
     private var levelButton: Button? = null
 
     private var contained = true
 
     init {
-
-        towers = Collections.synchronizedList(ArrayList<Tower>())
-        enemies = Collections.synchronizedList(ArrayList<Enemy>())
-        bullets = Collections.synchronizedList(ArrayList<Bullet>())
-
-        init()
-    }// TODO
-
-    fun setLevelButton(levelButton: Button) {
-        this.levelButton = levelButton
-        this.levelButton!!.setOnAction { e: ActionEvent ->
-            bullets.clear()
-            Thread(Level(levelNum++, this)).start()
-            this.levelButton!!.isVisible = false
-        }
-    }
-
-    fun onLevelDone() {
-        levelButton!!.isVisible = true
-    }
-
-    fun buyTower(cost: Int) {
-        money -= cost
-    }
-
-    fun setSelectedTower(t: Tower) {
-        selectedTower = t
-    }
-
-    fun addEnemy(simpleEnemy: Enemy) {
-        enemies.add(simpleEnemy)
-    }
-
-    private fun init() {
         gridSet[0] = Image("file:img/PNG/Retina/towerDefense_tile162.png")
         gridSet[1] = Image("file:img/PNG/Retina/towerDefense_tile254.png")
         gridSet[2] = Image("file:img/PNG/Retina/towerDefense_tile230.png")
@@ -97,16 +59,39 @@ class Game(width: Int, height: Int) : Canvas(width.toDouble(), height.toDouble()
             my = e.y.toInt()
         }
 
-        setOnMouseExited { e: MouseEvent -> contained = false }
+        setOnMouseExited { _: MouseEvent -> contained = false }
 
-        setOnMouseEntered { e: MouseEvent -> contained = true }
+        setOnMouseEntered { _: MouseEvent -> contained = true }
 
         setOnMouseClicked { e: MouseEvent -> selectedTower = handleMouseClick(e, grid, towers, selectedTower, this) }
+    }
 
+    fun setLevelButton(levelButton: Button) {
+        this.levelButton = levelButton
+        this.levelButton?.setOnAction { _: ActionEvent ->
+            bullets.clear()
+            Thread(Level(this)).start()
+            this.levelButton?.isVisible = false
+        }
+    }
+
+    fun onLevelDone() {
+        levelButton!!.isVisible = true
+    }
+
+    fun buyTower(cost: Int) {
+        money -= cost
+    }
+
+    fun setSelectedTower(t: Tower) {
+        selectedTower = t
+    }
+
+    fun addEnemy(simpleEnemy: Enemy) {
+        enemies.add(simpleEnemy)
     }
 
     fun repaint() {
-        // TODO
         val gc = graphicsContext2D
 
         gc.clearRect(0.0, 0.0, (TILE_SIZE * GRID_WIDTH).toDouble(), (TILE_SIZE * GRID_HEIGHT).toDouble())
@@ -115,7 +100,7 @@ class Game(width: Int, height: Int) : Canvas(width.toDouble(), height.toDouble()
         // -------------------
         for (i in 0..GRID_WIDTH - 1) {
             for (j in 0..GRID_HEIGHT - 1) {
-                gc.drawImage(gridSet!![grid[j][i]], (i * TILE_SIZE).toDouble(), (j * TILE_SIZE).toDouble(), TILE_SIZE.toDouble(), TILE_SIZE.toDouble())
+                gc.drawImage(gridSet[grid[j][i]], (i * TILE_SIZE).toDouble(), (j * TILE_SIZE).toDouble(), TILE_SIZE.toDouble(), TILE_SIZE.toDouble())
             }
         }
         // -------------------
@@ -163,17 +148,15 @@ class Game(width: Int, height: Int) : Canvas(width.toDouble(), height.toDouble()
             val bIterator = bullets.iterator()
 
             while (bIterator.hasNext()) {
-                var b: Bullet? = bIterator.next()
+                val b: Bullet? = bIterator.next()
 
                 b!!.move()
 
                 if (b.collided()) {
                     b.doDamage()
                     bIterator.remove()
-                    b = null
                 } else if (b.offScreen()) {
                     bIterator.remove()
-                    b = null
                 }
             }
         }
@@ -182,12 +165,11 @@ class Game(width: Int, height: Int) : Canvas(width.toDouble(), height.toDouble()
             val eIterator = enemies.iterator()
 
             while (eIterator.hasNext()) {
-                var e: Enemy? = eIterator.next()
+                val e: Enemy? = eIterator.next()
 
                 if (e!!.isDead) {
                     eIterator.remove()
                     money += e.reward
-                    e = null
                     continue
                 }
 
@@ -209,7 +191,7 @@ class Game(width: Int, height: Int) : Canvas(width.toDouble(), height.toDouble()
                 }
             }
 
-            if (frontEnemy != null && t.canFire()) {
+            if (frontEnemy != null && t.canFire) {
                 bullets.add(t.fire(frontEnemy))
             }
 

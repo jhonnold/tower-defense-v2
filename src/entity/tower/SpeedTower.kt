@@ -8,10 +8,10 @@ import javafx.scene.image.Image
 import main.Main
 
 class SpeedTower(x: Int, y: Int) : Tower(x, y) {
+    override var img: Image = Image(IMAGE_URL)
+    override var baseImg: Image = Image(BASE_IMAGE_URL)
 
     init {
-        baseImg = Image(BASE_IMAGE_URL)
-        img = Image(IMAGE_URL)
         range = RANGE
         damage = 5
         shotDelay = 20

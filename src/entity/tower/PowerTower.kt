@@ -10,15 +10,14 @@ import javafx.scene.transform.Rotate
 import main.Main
 
 class PowerTower(x: Int, y: Int) : Tower(x, y) {
+    override var img: Image = Image(IMAGE_URL)
+    override var baseImg: Image = Image(BASE_IMAGE_URL)
 
     private val halfImg: Image
 
     private var bulletCount = 2
 
     init {
-
-        baseImg = Image(BASE_IMAGE_URL)
-        img = Image(IMAGE_URL)
         halfImg = Image(HALF_IMAGE_URL)
         blankImg = Image(BLANK_IMAGE_URL)
 
@@ -48,17 +47,15 @@ class PowerTower(x: Int, y: Int) : Tower(x, y) {
         val xi = x - TILE_SIZE / 2
         val yi = y - TILE_SIZE / 2
 
-        if (baseImg != null) {
-            gc.drawImage(baseImg, xi, yi, TILE_SIZE.toDouble(), TILE_SIZE.toDouble())
-        }
+        gc.drawImage(baseImg, xi, yi, TILE_SIZE.toDouble(), TILE_SIZE.toDouble())
 
         val r = Rotate(rotationAngle, x, y)
         gc.save()
         gc.setTransform(r.mxx, r.myx, r.mxy, r.myy, r.tx, r.ty)
 
-        if (!canFire() && bulletCount == 2) {
+        if (!canFire && bulletCount == 2) {
             gc.drawImage(blankImg, xi, yi, TILE_SIZE.toDouble(), TILE_SIZE.toDouble())
-        } else if (!canFire() && bulletCount == 1) {
+        } else if (!canFire && bulletCount == 1) {
             gc.drawImage(halfImg, xi, yi, TILE_SIZE.toDouble(), TILE_SIZE.toDouble())
         } else {
             gc.drawImage(img, xi, yi, TILE_SIZE.toDouble(), TILE_SIZE.toDouble())

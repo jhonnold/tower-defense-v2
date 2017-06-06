@@ -7,18 +7,12 @@ import javafx.scene.image.Image
 import javafx.scene.transform.Rotate
 
 abstract class Enemy(x: Double, y: Double, internal var health: Int, internal var speed: Double) : Entity(x, y) {
-    var reward = 1
-        internal set
-    var distanceTraveled: Int = 0
-        internal set
-    internal var dir: Char = ' '
-    internal var rotationAngle: Double = 0.toDouble()
+    internal var reward = 1
+    internal var distanceTraveled = 0
+    internal var dir = ' '
+    internal var rotationAngle = 0.0
 
-    internal var img: Image? = null
-
-    init {
-        distanceTraveled = 0
-    }
+    internal abstract var img: Image
 
     fun setDir(dir: Char) {
         this.dir = dir
@@ -73,22 +67,20 @@ abstract class Enemy(x: Double, y: Double, internal var health: Int, internal va
 
         when (dir) {
             'N' -> {
-                y = y - speed
+                y -= speed
                 rotationAngle = -90.0
             }
             'S' -> {
-                y = y + speed
+                y += speed
                 rotationAngle = 90.0
             }
             'E' -> {
-                x = x + speed
+                x += speed
                 rotationAngle = 0.0
             }
             'W' -> {
-                x = x - speed
+                x -= speed
                 rotationAngle = 180.0
-            }
-            else -> {
             }
         }
 

@@ -12,8 +12,8 @@ class ImageButton(upImage: String, downImage: String) : ImageView() {
 
         image = up
 
-        setOnMousePressed { e: MouseEvent -> image = down }
+        setOnMousePressed { _: MouseEvent -> image = down }
 
-        setOnMouseReleased { e: MouseEvent -> image = up }
+        setOnMouseReleased { _: MouseEvent -> image = up }
     }
 }

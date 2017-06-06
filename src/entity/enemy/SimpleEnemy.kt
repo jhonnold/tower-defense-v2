@@ -3,11 +3,10 @@ package entity.enemy
 import javafx.scene.image.Image
 
 class SimpleEnemy(x: Int, y: Int) : Enemy(x.toDouble(), y.toDouble(), 5, 1.0) {
+    override var img: Image = Image(IMAGE_URL)
 
     init {
-        img = Image(IMAGE_URL)
         setDir('E')
-        reward = 1
     }
 
     companion object {
