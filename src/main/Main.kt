@@ -1,19 +1,20 @@
 package main
 
+import com.jfoenix.controls.JFXButton
 import gui.Game
+import gui.Game.Companion.FONT
 import gui.MainMenu
 import gui.Shop
 import javafx.animation.KeyFrame
+import javafx.animation.Timeline
 import javafx.application.Application
 import javafx.application.Platform
 import javafx.event.ActionEvent
 import javafx.fxml.FXMLLoader
 import javafx.scene.Parent
 import javafx.scene.Scene
-import javafx.scene.control.Button
 import javafx.scene.layout.AnchorPane
 import javafx.stage.Stage
-import javafx.animation.Timeline
 import javafx.util.Duration
 
 /**
@@ -32,7 +33,7 @@ class Main : Application(), Runnable {
     private var game: Game? = null
     private var shop: Shop? = null
 
-    private var fxmlLoader: FXMLLoader? = null
+    private val fxmlLoader: FXMLLoader = FXMLLoader(javaClass.getResource("main.fxml"))
 
     private var running = false
 
@@ -48,8 +49,7 @@ class Main : Application(), Runnable {
         primaryStage.title = "tower-defense"
 
         // Load the scene from FXML
-        fxmlLoader = FXMLLoader(javaClass.getResource("main.fxml"))
-        val root = fxmlLoader!!.load<Parent>()
+        val root = fxmlLoader.load<Parent>()
         val scene = Scene(root)
         primaryStage.scene = scene
         primaryStage.setOnCloseRequest { _ ->
@@ -58,7 +58,7 @@ class Main : Application(), Runnable {
         }
 
         // Move the game into the leftPane
-        leftPane = (fxmlLoader!!.getController<Any>() as Controller).leftPane
+        leftPane = (fxmlLoader.getController<Any>() as Controller).leftPane
         MainMenu(leftPane!!, this)
 
         // Set the frame rate to ~60 FPS
@@ -110,14 +110,15 @@ class Main : Application(), Runnable {
         leftPane!!.children.clear()
         leftPane!!.children.add(game)
 
-        val levelButton = Button("Next Level")
+        val levelButton = JFXButton("Next Level")
+        levelButton.font = FONT
         levelButton.layoutX = 10.0
         levelButton.layoutY = 10.0
 
         leftPane!!.children.add(levelButton)
         game!!.setLevelButton(levelButton)
 
-        rightPane = (fxmlLoader!!.getController<Any>() as Controller).rightPane
+        rightPane = (fxmlLoader.getController<Any>() as Controller).rightPane
         shop = Shop(rightPane!!)
         shop!!.setGameListener(game!!)
         shop!!.setMainListener(this)

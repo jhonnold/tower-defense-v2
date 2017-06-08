@@ -9,6 +9,7 @@ import javafx.scene.control.Button
 import javafx.scene.image.Image
 import javafx.scene.input.MouseEvent
 import javafx.scene.paint.Color
+import javafx.scene.text.Font
 import level.Level
 import utils.InputHandler.collides
 import utils.InputHandler.handleMouseClick
@@ -139,8 +140,8 @@ class Game(width: Int, height: Int) : Canvas(width.toDouble(), height.toDouble()
             }
         }
 
-        gc.fillText("Money: " + money, 100.0, 100.0)
-
+        gc.font = FONT
+        gc.fillText("Money: " + money, 10.0, 100.0)
     }
 
     fun update() {
@@ -148,9 +149,9 @@ class Game(width: Int, height: Int) : Canvas(width.toDouble(), height.toDouble()
             val bIterator = bullets.iterator()
 
             while (bIterator.hasNext()) {
-                val b: Bullet? = bIterator.next()
+                val b: Bullet = bIterator.next()
 
-                b!!.move()
+                b.move()
 
                 if (b.collided()) {
                     b.doDamage()
@@ -165,9 +166,9 @@ class Game(width: Int, height: Int) : Canvas(width.toDouble(), height.toDouble()
             val eIterator = enemies.iterator()
 
             while (eIterator.hasNext()) {
-                val e: Enemy? = eIterator.next()
+                val e: Enemy = eIterator.next()
 
-                if (e!!.isDead) {
+                if (e.isDead) {
                     eIterator.remove()
                     money += e.reward
                     continue
@@ -200,7 +201,7 @@ class Game(width: Int, height: Int) : Canvas(width.toDouble(), height.toDouble()
     }
 
     companion object {
-
-        var TILE_SIZE = 64
+        val FONT = Font("KenVector Future Regular", 22.0)
+        val TILE_SIZE = 64
     }
 }
