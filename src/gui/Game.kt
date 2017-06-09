@@ -29,8 +29,8 @@ class Game(width: Int, height: Int) : Canvas(width.toDouble(), height.toDouble()
     private val enemies: MutableList<Enemy> = Collections.synchronizedList(ArrayList<Enemy>())
     private val bullets: MutableList<Bullet> = Collections.synchronizedList(ArrayList<Bullet>())
 
-    private var mx: Int = 0
-    private var my: Int = 0
+    private var mx = 0
+    private var my = 0
 
     internal var money = 50
         get set
