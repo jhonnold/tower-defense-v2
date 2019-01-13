@@ -25,5 +25,6 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="library" name="ejml-ddense-0.31" level="project" />
     <orderEntry type="library" name="ejml-cdense-0.31" level="project" />
+    <orderEntry type="library" name="ejml-core-0.31-sources" level="project" />
   </component>
 </module>
